@@ -1,5 +1,4 @@
 ## Table of Contents
-- [Welcome to my GitHub](#welcome-to-my-github)
 - [Gamelog project](#gamelog-project)
   - [Overview](#overview)
   - [Features](#features)
