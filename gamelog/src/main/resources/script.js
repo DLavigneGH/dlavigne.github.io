@@ -129,6 +129,8 @@ function resetRunbackFilter() {
 
 // Resets all filters and sorting
 function resetFilter() {
+    document.getElementById('searchInput').value = '';
+
     document.getElementById('filterCompletedCheckbox').checked = false;
     document.getElementById('filterRunAgainCheckbox').checked = false;
 
