@@ -9,10 +9,6 @@
   - [Changelog](#changelog)
   - [TODO](#todo)
 
-# Welcome to my GitHub
-
-Welcome! This is a GitHub holding some of my personal project for learning.
-
 # Gamelog project
 
 ## Overview
