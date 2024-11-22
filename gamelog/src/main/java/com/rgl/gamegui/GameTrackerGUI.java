@@ -46,7 +46,7 @@ public class GameTrackerGUI extends JFrame {
      */
     public GameTrackerGUI() {
         // Copy index.html from resources to the target directory
-        ResourceExtractor.copyIndexHtmlToTarget();
+        ResourceExtractor.copyResourcesToTarget("index.html", "script.js");
 
         // Initialize the GameManager to handle the games
         gameManager = new GameManager();

@@ -9,26 +9,38 @@ import java.nio.file.Paths;
 /**
  * Extracts resource files from the application classpath to the target directory.
  * 
- * Currently used to copy the `index.html` file to the execution directory, 
- * ensuring it is available for the application to serve or open.
+ * Currently used to copy the `index.html` and `script.js` files to the execution directory,
+ * ensuring they are available for the application to serve or open.
  */
-
 public class ResourceExtractor {
 
     /**
-     * Copies the resource file (`index.html`) to the target directory.
+     * Copies the list of resource files to the target directory.
+     * 
+     * @param resourceNames Array of resource file names (e.g., "index.html", "script.js").
      */
-    public static void copyIndexHtmlToTarget() {
-        InputStream in = ResourceExtractor.class.getClassLoader().getResourceAsStream("index.html");
+    public static void copyResourcesToTarget(String... resourceNames) {
+        for (String resourceName : resourceNames) {
+            copyResourceToTarget(resourceName);
+        }
+    }
+
+    /**
+     * General method to copy a resource file from the classpath to the target directory.
+     * 
+     * @param resourceName The name of the resource file to copy (e.g., "index.html" or "script.js").
+     */
+    private static void copyResourceToTarget(String resourceName) {
+        InputStream in = ResourceExtractor.class.getClassLoader().getResourceAsStream(resourceName);
 
         if (in == null) {
-            System.out.println("Resource not found: index.html");
+            System.out.println("Resource not found: " + resourceName);
             return;
         }
 
         try {
             // Define the output path in the target folder (root)
-            String outputPath = Paths.get(System.getProperty("user.dir"), "index.html").toString();
+            String outputPath = Paths.get(System.getProperty("user.dir"), resourceName).toString();
             
             // Ensure the directory exists
             Files.createDirectories(Paths.get(System.getProperty("user.dir")));
@@ -42,7 +54,7 @@ public class ResourceExtractor {
                 }
             }
 
-            System.out.println("index.html copied to: " + outputPath);
+            System.out.println(resourceName + " copied to: " + outputPath);
         } catch (IOException e) {
             e.printStackTrace();
         }
