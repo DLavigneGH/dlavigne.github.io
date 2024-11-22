@@ -37,6 +37,15 @@ function displayGames(gameList) {
         tableBody.appendChild(row);
     });
 }
+// Function to filter games by title based on the search input
+function filterGamesByTitle() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const filteredGames = games.filter(game => 
+        game.gameTitle.toLowerCase().includes(searchTerm)  // Filter titles that include the search term
+    );
+
+    displayGames(filteredGames);  // Display the filtered list
+}
 
 // Function to toggle sorting by game title (A-Z/Z-A)
 function toggleSortByName() {

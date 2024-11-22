@@ -18,10 +18,15 @@
         th {
             background-color: #f4f4f4;
         }
+        #searchInput {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 300px;
+        }
     </style>
 </head>
 <body>
-
+    <input type="text" id="searchInput" placeholder="Search for a game..." oninput="filterGamesByTitle()"><br>
     <button onclick="resetFilter()">Reset All Filters</button>
     <table id="gamesTable" border="1">
         <thead>
