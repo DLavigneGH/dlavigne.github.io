@@ -2,21 +2,31 @@
   {
     "gameTitle": "Actraiser",
     "system": "SNES",
-    "comments": "ABC",
-    "youtubeLink": "youtube.com/link",
+    "comments": "",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003dPQ_wrn6hNEI",
     "referencedBy": "",
-    "coverImagePath": "",
+    "coverImagePath": "data/cover/ActRaiser.jpg",
     "gameCompleted": true,
+    "runAgain": true
+  },
+  {
+    "gameTitle": "DooM",
+    "system": "",
+    "comments": "",
+    "youtubeLink": "",
+    "referencedBy": "",
+    "coverImagePath": "D:\\GitHub\\dlavigne.github.io\\gamelog\\target\\data\\cover\\Castlevania 2.jpg",
+    "gameCompleted": false,
     "runAgain": false
   },
   {
-    "gameTitle": "Casltevania",
-    "system": "NES",
+    "gameTitle": "hbkjhjk",
+    "system": "",
     "comments": "",
-    "youtubeLink": "youtube.com/link",
+    "youtubeLink": "",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": true,
-    "runAgain": true
+    "coverImagePath": "D:\\GitHub\\dlavigne.github.io\\gamelog\\target\\data\\cover\\PSX Doom I CE.jpg",
+    "gameCompleted": false,
+    "runAgain": false
   }
 ]

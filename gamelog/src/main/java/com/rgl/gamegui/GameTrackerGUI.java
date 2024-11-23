@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import com.rgl.gamedata.GameInfo;
-import com.rgl.helpers.ResourceExtractor;
 
 /**
  * Implements the graphical user interface (GUI) for the Game Tracker application.
@@ -23,121 +21,55 @@ import com.rgl.helpers.ResourceExtractor;
  * the GameManager to manage game data and update the UI accordingly.
  */
 
-public class GameTrackerGUI extends JFrame {
-    // Define UI components
+ public class GameTrackerGUI extends JFrame {
 
-    /**
-     * Dropdown for selecting a game from the list.
-     */
+    private GameManager gameManager;
+
+    // Dropdown
     private JComboBox<String> gameDropdown;
-
-    /**
-     * The text fields used for entering game details (title, platform, YouTube link, comments, reference).
-     */
-    private JTextField titleField, platformField, youtubeField, commentsField, referenceField, coverImagePathField;
     
-    /**
-     * Checkboxes to mark the status of the game.
-     */
-    private JCheckBox completedCheckBox, runAgainCheckBox;
+    // Panels
+    private TextFieldsPanel textFieldsPanel;
+    private CheckboxesPanel checkboxesPanel;
+    private ButtonsPanel buttonsPanel;
 
-    /**
-     * Manages the games, adds and updates them
-     */
-    private GameManager gameManager;  
-    
-    private File selectedCoverFile;
-
-    /**
-     * Constructs the Game Tracker GUI, initializes components, and loads game data.
-     */
     public GameTrackerGUI() {
-        // Copy index.html from resources to the target directory
-        ResourceExtractor.copyResourcesToTarget("index.html", "script.js");
 
-        // Initialize the GameManager to handle the games
+        // Initialize the GameManager
         gameManager = new GameManager();
-        
+        gameManager.loadGames();
+
+        // Initialize the panels
+        textFieldsPanel = new TextFieldsPanel();
+        checkboxesPanel = new CheckboxesPanel();
+        buttonsPanel = new ButtonsPanel();
+
         // Set up the window title, size, and layout
         setTitle("Game Tracker");
-        setSize(400, 550);
+        setSize(400, 420);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        // Initialize the UI components
-        initializeComponents();
-
-        // Load and populate the dropdown with the list of games
-        gameManager.loadGames();
-
-        // Populate the dropdown with game titles
-        populateGameDropdown();
-    }
-
-    // Initializes UI components such as text fields, buttons, and dropdown
-    private void initializeComponents() {
-        // Initialize text fields for input
-        titleField = new JTextField();
-        platformField = new JTextField();
-        youtubeField = new JTextField();
-        commentsField = new JTextField();
-        referenceField = new JTextField();
-        coverImagePathField = new JTextField();
-        coverImagePathField.setEditable(false);
-
-        // Initialize checkboxes for game status
-        completedCheckBox = new JCheckBox("Completed");
-        runAgainCheckBox = new JCheckBox("Run Again");
-
-        // Create the dropdown for game titles
+        // Add components to the frame
+        add(new JLabel("Select Game:"));
         gameDropdown = new JComboBox<>();
+        add(gameDropdown);
+        add(textFieldsPanel);
+        add(checkboxesPanel);
+        add(buttonsPanel);
+
+        // Populate dropdown
+        populateGameDropdown();
+
+        // Button actions
+        buttonsPanel.addButtonActionListener(buttonsPanel.getUploadCoverButton(), e -> uploadCoverButtonActionPerformed());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getSubmitNewGameButton(), e -> addNewGame());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getSaveChangesButton(), e -> saveGameChanges());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getDeleteGameButton(), e -> deleteGame());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getOpenHtmlButton(), e -> openBrowser("http://localhost:8080/index.html"));
 
         // Add action listener to update fields when a game is selected
         gameDropdown.addActionListener(e -> updateUIFromSelectedGame());
-        
-        // Add UI components to the frame
-        add(new JLabel("Select Game:"));
-        add(gameDropdown);
-        add(new JLabel("Game Title:"));
-        add(titleField);
-        add(new JLabel("Platform:"));
-        add(platformField);
-        add(new JLabel("Comments"));
-        add(commentsField);
-        add(new JLabel("YouTube Link:"));
-        add(youtubeField);
-        add(new JLabel("Reference:"));
-        add(referenceField);
-        add(new JLabel("Cover Image Path:"));
-        add(coverImagePathField);
-        add(completedCheckBox);
-        add(runAgainCheckBox);
-
-        add(createSubmitButton("Upload Cover", e -> uploadCoverButtonActionPerformed()));
-
-        // Add Submit buttons with actions
-        add(createSubmitButton("Submit New Game", e -> addNewGame()));
-        add(createSubmitButton("Save Changes", e -> saveGameChanges()));
-
-        // Delete button
-        add(createSubmitButton("Delete Game", e -> deleteGame()));
-
-        // Button to open HTML file in browser
-        add(createSubmitButton("Open HTML", e -> openBrowser("http://localhost:8080/index.html")));
-    }
-
-    
-    /**
-     * Creates a submit button and attaches the provided action listener.
-     *
-     * @param text           the button label.
-     * @param actionListener the action listener to attach.
-     * @return the created JButton.
-     */
-    private JButton createSubmitButton(String text, ActionListener actionListener) {
-        JButton button = new JButton(text);
-        button.addActionListener(actionListener);
-        return button;
     }
 
     /**
@@ -150,6 +82,7 @@ public class GameTrackerGUI extends JFrame {
 
         // Add each game's title to the dropdown
         for (GameInfo game : gameManager.getGames()) {
+            System.out.println("Adding to dropdown: " + game.getGameTitle());  // Debug print
             gameDropdown.addItem(game.getGameTitle());
         }
     }
@@ -163,19 +96,33 @@ public class GameTrackerGUI extends JFrame {
             clearFields(); // Clear fields if the user selects the default option
             return;
         }
-
+    
         // Retrieve the selected game from GameManager
         GameInfo selectedGame = gameManager.getGameByTitle(selectedTitle);
+        if (selectedGame == null) {
+            System.out.println("Selected game not found: " + selectedTitle); // Debug print
+            return;
+        }
         if (selectedGame != null) {
             // Populate the fields with the selected game's details
-            titleField.setText(selectedGame.getGameTitle());
-            platformField.setText(selectedGame.getSystem());
-            youtubeField.setText(selectedGame.getYoutubeLink());
-            referenceField.setText(selectedGame.getReference());
-            commentsField.setText(selectedGame.getComments());
-            coverImagePathField.setText(selectedGame.getCoverImagePath());
-            completedCheckBox.setSelected(selectedGame.getGameCompleted());
-            runAgainCheckBox.setSelected(selectedGame.getRunback());
+            textFieldsPanel.getTitleField().setText(selectedGame.getGameTitle());
+            textFieldsPanel.getPlatformField().setText(selectedGame.getSystem());
+            textFieldsPanel.getYoutubeField().setText(selectedGame.getYoutubeLink());
+            textFieldsPanel.getCommentsField().setText(selectedGame.getComments());
+            textFieldsPanel.getReferenceField().setText(selectedGame.getReference());
+    
+            // Convert the relative cover image path to the absolute path
+            String relativeCoverPath = selectedGame.getCoverImagePath();
+            if (!relativeCoverPath.isEmpty()) {
+                // Convert the relative path to an absolute path
+                File coverFile = new File(relativeCoverPath);
+                textFieldsPanel.getCoverImagePathField().setText(coverFile.getAbsolutePath());
+            } else {
+                textFieldsPanel.getCoverImagePathField().setText(""); // Clear the field if no cover is selected
+            }
+    
+            checkboxesPanel.getCompletedCheckBox().setSelected(selectedGame.getGameCompleted());
+            checkboxesPanel.getRunAgainCheckBox().setSelected(selectedGame.getRunback());
         }
     }
 
@@ -183,40 +130,24 @@ public class GameTrackerGUI extends JFrame {
      * Handles the addition of a new game.
      */
     private void addNewGame() {
-        // Collect inputs and create a new Game object
-        String title = titleField.getText().trim();
-
-        if (title.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Game title cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Don't proceed if the title is empty
-        }
-
-        // Check if the game title already exists
-        for (GameInfo game : gameManager.getGames()) {
-            if (game.getGameTitle().equalsIgnoreCase(title)) {
-                JOptionPane.showMessageDialog(this, "A game with this title already exists.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; 
-            }
-        }
-
-        String platform = platformField.getText();
-        boolean completed = completedCheckBox.isSelected();
-        String comments = commentsField.getText();
-        String youtubeLink = youtubeField.getText();
-        String reference = referenceField.getText();
-        boolean runAgain = runAgainCheckBox.isSelected();
-        
-        // Get the cover file path (if any)
-        String coverFilePath = (selectedCoverFile != null) ? selectedCoverFile.getAbsolutePath() : "";
-
-        // Add the game with the cover path (empty if none selected)
+        // Collect data from the panels
+        String title = textFieldsPanel.getTitleField().getText();
+        String platform = textFieldsPanel.getPlatformField().getText();
+        boolean completed = checkboxesPanel.getCompletedCheckBox().isSelected();
+        String comments = textFieldsPanel.getCommentsField().getText();
+        String youtubeLink = textFieldsPanel.getYoutubeField().getText();
+        String reference = textFieldsPanel.getReferenceField().getText();
+        boolean runAgain = checkboxesPanel.getRunAgainCheckBox().isSelected();
+        String coverFilePath = textFieldsPanel.getCoverImagePathField().getText();
+    
         if (gameManager.addGame(title, platform, completed, comments, youtubeLink, reference, runAgain, coverFilePath)) {
-            populateGameDropdown(); // Update the dropdown list
+            populateGameDropdown();  // Update the dropdown list
             clearFields(); // Clear the form for next input
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add new game.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     /**
      * Saves changes made to an existing game.
@@ -228,14 +159,14 @@ public class GameTrackerGUI extends JFrame {
     
         // If the selected game exists, update its details
         if (selectedGame != null) {
-            String newTitle = titleField.getText();
-            
+            String newTitle = textFieldsPanel.getTitleField().getText();
+    
             // Convert cover image path string to File
-            File coverFile = new File(coverImagePathField.getText());
+            File coverFile = new File(textFieldsPanel.getCoverImagePathField().getText());
     
             // Ensure the file exists and is valid before passing to updateGame
             if (coverFile.exists() && coverFile.isFile()) {
-                
+    
                 // Check if the cover file has changed
                 if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {
                     // Delete the old cover image if it exists
@@ -271,8 +202,8 @@ public class GameTrackerGUI extends JFrame {
                     // Copy the file to the target directory
                     try {
                         Files.copy(coverFile.toPath(), newCoverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                        // Update the cover image path with the new file's path in the data/cover folder
-                        selectedGame.setCoverImagePath(newCoverFile.getPath());
+                        // Update the cover image path with the relative path in the data/cover folder
+                        selectedGame.setCoverImagePath("data/cover/" + newCoverFile.getName());  // Relative path for JSON
                     } catch (IOException e) {
                         e.printStackTrace();
                         JOptionPane.showMessageDialog(null, "Error copying cover image.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -281,15 +212,14 @@ public class GameTrackerGUI extends JFrame {
                 }
     
                 // Now update other details and save
-                gameManager.updateGame(selectedGame, newTitle, platformField.getText(), youtubeField.getText(), referenceField.getText(),
-                                       commentsField.getText(), completedCheckBox.isSelected(), runAgainCheckBox.isSelected(), selectedGame.getCoverImagePath());
+                gameManager.updateGame(selectedGame, newTitle, textFieldsPanel.getPlatformField().getText(), textFieldsPanel.getYoutubeField().getText(), textFieldsPanel.getReferenceField().getText(),
+                textFieldsPanel.getCommentsField().getText(), checkboxesPanel.getCompletedCheckBox().isSelected(), checkboxesPanel.getRunAgainCheckBox().isSelected(), "data/cover/" + coverFile.getName());
                 populateGameDropdown();  // Refresh dropdown
             } else {
                 JOptionPane.showMessageDialog(null, "Cover image file is invalid or doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    
     private void uploadCoverButtonActionPerformed() {
         // Open a file chooser to select the cover image
         JFileChooser fileChooser = new JFileChooser();
@@ -297,8 +227,8 @@ public class GameTrackerGUI extends JFrame {
         int result = fileChooser.showOpenDialog(this);
         
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedCoverFile = fileChooser.getSelectedFile(); // Get the selected file
-            coverImagePathField.setText(selectedCoverFile.getAbsolutePath()); // Update the path field
+            File selectedCoverFile = fileChooser.getSelectedFile(); // Get the selected file
+            textFieldsPanel.getCoverImagePathField().setText(selectedCoverFile.getAbsolutePath()); // Update the path field
             System.out.println("Selected Cover File: " + selectedCoverFile.getAbsolutePath()); // Debug print
         }
     }
@@ -327,16 +257,15 @@ public class GameTrackerGUI extends JFrame {
      * Clears all the input fields and checkboxes.
      */
     private void clearFields() {
-        titleField.setText("");
-        platformField.setText("");
-        youtubeField.setText("");
-        commentsField.setText("");
-        coverImagePathField.setText("");
-        referenceField.setText("");
-        selectedCoverFile = null;
-        
-        completedCheckBox.setSelected(false);
-        runAgainCheckBox.setSelected(false);
+
+        textFieldsPanel.getTitleField().setText("");
+        textFieldsPanel.getPlatformField().setText("");
+        textFieldsPanel.getYoutubeField().setText("");
+        textFieldsPanel.getCommentsField().setText("");
+        textFieldsPanel.getReferenceField().setText("");
+        textFieldsPanel.getCoverImagePathField().setText("");
+        checkboxesPanel.getCompletedCheckBox().setSelected(false);
+        checkboxesPanel.getRunAgainCheckBox().setSelected(false);
     }
 
     /**

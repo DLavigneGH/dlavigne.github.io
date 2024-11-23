@@ -60,9 +60,15 @@ document.addEventListener('mouseover', function(event) {
         popup.innerHTML = `<img src="${imageUrl}" alt="Cover Image" />`;
         document.body.appendChild(popup);
 
-        event.target.addEventListener('mouseout', () => {
-            document.body.removeChild(popup);
-        });
+        // Create a new mouseout listener for this specific popup
+        const handleMouseOut = () => {
+            if (popup.parentNode) {  // Check if the popup is still in the document
+                document.body.removeChild(popup);
+            }
+        };
+
+        // Attach the mouseout event to remove the popup when the mouse leaves
+        event.target.addEventListener('mouseout', handleMouseOut, { once: true });
     }
 });
 
