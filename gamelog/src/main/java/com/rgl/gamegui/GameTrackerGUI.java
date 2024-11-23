@@ -163,44 +163,64 @@ import com.rgl.helpers.ResourceExtractor;
         // If the selected game exists, update its details
         if (selectedGame != null) {
             String newTitle = textFieldsPanel.getTitleField().getText();
-    
-            // Convert cover image path string to File
-            File coverFile = new File(textFieldsPanel.getCoverImagePathField().getText());
-    
-            // Ensure the file exists and is valid before passing to updateGame
-            if (coverFile.exists() && coverFile.isFile()) {
-    
-                // Check if the cover file has changed
-                if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {    
-                    // Copy the new cover image to the data/cover directory
-                    File targetDirectory = new File("data/cover");
-                    if (!targetDirectory.exists()) {
-                        targetDirectory.mkdirs();  // Create the directory if it doesn't exist
+        
+            // Get cover image path input (it can be empty if no new cover is provided)
+            String coverImagePath = textFieldsPanel.getCoverImagePathField().getText();
+        
+            // If a cover image path is provided, check if it exists and is valid
+            if (!coverImagePath.isEmpty()) {
+                File coverFile = new File(coverImagePath);
+        
+                // Ensure the file exists and is valid before passing to updateGame
+                if (coverFile.exists() && coverFile.isFile()) {
+        
+                    // Check if the cover file has changed
+                    if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {    
+                        // Copy the new cover image to the data/cover directory
+                        File targetDirectory = new File("data/cover");
+                        if (!targetDirectory.exists()) {
+                            targetDirectory.mkdirs();  // Create the directory if it doesn't exist
+                        }
+        
+                        // Keep the original file name
+                        String originalFileName = coverFile.getName();
+                        File newCoverFile = new File(targetDirectory, originalFileName);
+        
+                        // Handle file name conflict if the file already exists
+                        int counter = 1;
+                        while (newCoverFile.exists()) {
+                            String nameWithoutExtension = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+                            String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+                            newCoverFile = new File(targetDirectory, nameWithoutExtension + "_" + counter + extension);
+                            counter++;
+                        }
+        
+                        // Copy the file to the target directory
+                        try {
+                            Files.copy(coverFile.toPath(), newCoverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                            // Update the cover image path with the relative path in the data/cover folder
+                            selectedGame.setCoverImagePath("data/cover/" + newCoverFile.getName());  // Relative path for JSON
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Error copying cover image.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
-    
-                    // // Keep the original file name
-                     String originalFileName = coverFile.getName();
-                     File newCoverFile = new File(targetDirectory, originalFileName);
-    
-                    // Copy the file to the target directory
-                    try {
-                        Files.copy(coverFile.toPath(), newCoverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                        // Update the cover image path with the relative path in the data/cover folder
-                        selectedGame.setCoverImagePath("data/cover/" + newCoverFile.getName());  // Relative path for JSON
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error copying cover image.", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cover image file is invalid or doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
-    
-                // Now update other details and save
-                gameManager.updateGame(selectedGame, newTitle, textFieldsPanel.getPlatformField().getText(), textFieldsPanel.getYoutubeField().getText(), textFieldsPanel.getReferenceField().getText(),
-                textFieldsPanel.getCommentsField().getText(), checkboxesPanel.getCompletedCheckBox().isSelected(), checkboxesPanel.getRunAgainCheckBox().isSelected(), "data/cover/" + coverFile.getName());
-                populateGameDropdown();  // Refresh dropdown
             } else {
-                JOptionPane.showMessageDialog(null, "Cover image file is invalid or doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                // If no cover image is provided, keep the existing cover image path
+                selectedGame.setCoverImagePath(selectedGame.getCoverImagePath());
             }
+    
+            // Now update other details and save
+            gameManager.updateGame(selectedGame, newTitle, textFieldsPanel.getPlatformField().getText(), textFieldsPanel.getYoutubeField().getText(), 
+                textFieldsPanel.getReferenceField().getText(), textFieldsPanel.getCommentsField().getText(), 
+                checkboxesPanel.getCompletedCheckBox().isSelected(), checkboxesPanel.getRunAgainCheckBox().isSelected(), selectedGame.getCoverImagePath());
+            
+            populateGameDropdown();  // Refresh dropdown
         }
     }
     private void uploadCoverButtonActionPerformed() {
