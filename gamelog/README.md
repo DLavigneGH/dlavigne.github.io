@@ -60,6 +60,6 @@ You can read the Javadoc [here](https://dlavignegh.github.io/dlavigne.github.io/
 
 ## Changelog
 
-v1.0 - First version done and uploaded to GitHub
-v1.1 - Search Field and table sorting
-v1.2 - Ability to add image covers for your games and see as popup in the HTML table
+v1.0 - First version done and uploaded to GitHub<br>
+v1.1 - Search Field and table sorting<br>
+v1.2 - Ability to add image covers for your games and see as popup in the HTML table<br>
