@@ -1,10 +1,10 @@
 /**
  * This is the root package for the Game Tracker application.
- * 
+ * <p>
  * It contains core classes and interfaces that define the primary structure of the application.
  * Other packages, such as GameGUI, gametracker, and jsonutility, are included as sub-packages
  * for handling specific functionality related to the user interface, game data, and JSON handling.
- * 
+ * <p>
  * Core functionality:
  * - The application tracks and manages game data.
  * - It provides a graphical user interface for interacting with the game data.
