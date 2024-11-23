@@ -157,7 +157,7 @@ import com.rgl.helpers.ResourceExtractor;
             boolean runAgain = checkboxesPanel.getRunAgainCheckBox().isSelected();
             String coverImagePath = textFieldsPanel.getCoverImagePathField().getText();
 
-            gameManager.updateOrSaveGame(selectedGame, selectedTitle, platform, youtubeLink, reference, comments, completed, runAgain, coverImagePath);
+            gameManager.updateOrSaveGame(selectedGame, selectedTitle, newTitle, platform, youtubeLink, reference, comments, completed, runAgain, coverImagePath);
             populateGameDropdown();
         }
     }

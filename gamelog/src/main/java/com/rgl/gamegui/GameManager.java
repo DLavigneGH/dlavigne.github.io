@@ -111,7 +111,8 @@ public class GameManager {
      * to the target directory and the path will be updated.
      * 
      * @param selectedGame the game object to update.
-     * @param title        the new title of the game.
+     * @param title          the original title of the game (used when the game is newly created).
+     * @param newTitle       the new title of the game (used for updating an existing game's title).
      * @param platform     the new platform of the game.
      * @param youtubeLink  the new YouTube link.
      * @param reference    the new reference for the game.
@@ -120,7 +121,7 @@ public class GameManager {
      * @param runAgain     true if the game is worth replaying, false otherwise.
      * @param coverImagePath the new cover image path (optional).
      */
-    public void updateOrSaveGame(GameInfo selectedGame, String title, String platform, String youtubeLink, 
+    public void updateOrSaveGame(GameInfo selectedGame, String title, String newTitle, String platform, String youtubeLink, 
     String reference, String comments, boolean completed, boolean runAgain, String coverImagePath) {
     
     // If selectedGame is null, it's a new game, so create a new GameInfo object
@@ -129,7 +130,7 @@ public class GameManager {
         games.add(selectedGame);
     } else {
         // Otherwise, update the existing game
-        selectedGame.setGameTitle(title);
+        selectedGame.setGameTitle(newTitle);
         selectedGame.setSystem(platform);
         selectedGame.setYoutubeLink(youtubeLink);
         selectedGame.setReference(reference);
