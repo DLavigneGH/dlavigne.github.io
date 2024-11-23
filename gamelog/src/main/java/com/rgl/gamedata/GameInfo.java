@@ -14,6 +14,7 @@ public class GameInfo {
     private String comments;
     private String youtubeLink;
     private String referencedBy;
+    private String coverImagePath;
 
     private boolean gameCompleted;
     private boolean runAgain;
@@ -29,7 +30,7 @@ public class GameInfo {
      * @param referencedBy a reference to the source or person that suggested or referenced the game
      * @param runAgain     whether the game is worth playing again (true if it is, false otherwise)
      */
-    public GameInfo(String gameTitle, String system, boolean gameCompleted, String comments, String youtubeLink, String referencedBy, boolean runAgain) {
+    public GameInfo(String gameTitle, String system, boolean gameCompleted, String comments, String youtubeLink, String referencedBy, boolean runAgain, String coverImagePath) {
         this.gameTitle = gameTitle;
         this.system = system;
         this.gameCompleted = gameCompleted;
@@ -37,6 +38,8 @@ public class GameInfo {
         this.youtubeLink = youtubeLink;
         this.referencedBy = referencedBy;
         this.runAgain = runAgain;
+        this.coverImagePath = coverImagePath;
+
     }
 
     // Getters and setters
@@ -94,5 +97,13 @@ public class GameInfo {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getCoverImagePath() {
+        return coverImagePath;
+    }
+    
+    public void setCoverImagePath(String coverImagePath) {
+        this.coverImagePath = coverImagePath;
     }
 }

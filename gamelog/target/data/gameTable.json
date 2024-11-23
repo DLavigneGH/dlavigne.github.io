@@ -1,0 +1,22 @@
+[
+  {
+    "gameTitle": "Actraiser",
+    "system": "SNES",
+    "comments": "ABC",
+    "youtubeLink": "youtube.com/link",
+    "referencedBy": "",
+    "coverImagePath": "",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Casltevania",
+    "system": "NES",
+    "comments": "",
+    "youtubeLink": "youtube.com/link",
+    "referencedBy": "",
+    "coverImagePath": "",
+    "gameCompleted": true,
+    "runAgain": true
+  }
+]

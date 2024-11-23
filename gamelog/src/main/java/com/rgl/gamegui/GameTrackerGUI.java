@@ -1,11 +1,16 @@
 package com.rgl.gamegui;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import com.rgl.gamedata.GameInfo;
 import com.rgl.helpers.ResourceExtractor;
@@ -29,7 +34,7 @@ public class GameTrackerGUI extends JFrame {
     /**
      * The text fields used for entering game details (title, platform, YouTube link, comments, reference).
      */
-    private JTextField titleField, platformField, youtubeField, commentsField, referenceField;
+    private JTextField titleField, platformField, youtubeField, commentsField, referenceField, coverImagePathField;
     
     /**
      * Checkboxes to mark the status of the game.
@@ -41,6 +46,8 @@ public class GameTrackerGUI extends JFrame {
      */
     private GameManager gameManager;  
     
+    private File selectedCoverFile;
+
     /**
      * Constructs the Game Tracker GUI, initializes components, and loads game data.
      */
@@ -53,7 +60,7 @@ public class GameTrackerGUI extends JFrame {
         
         // Set up the window title, size, and layout
         setTitle("Game Tracker");
-        setSize(400, 450);
+        setSize(400, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -75,6 +82,8 @@ public class GameTrackerGUI extends JFrame {
         youtubeField = new JTextField();
         commentsField = new JTextField();
         referenceField = new JTextField();
+        coverImagePathField = new JTextField();
+        coverImagePathField.setEditable(false);
 
         // Initialize checkboxes for game status
         completedCheckBox = new JCheckBox("Completed");
@@ -99,8 +108,12 @@ public class GameTrackerGUI extends JFrame {
         add(youtubeField);
         add(new JLabel("Reference:"));
         add(referenceField);
+        add(new JLabel("Cover Image Path:"));
+        add(coverImagePathField);
         add(completedCheckBox);
         add(runAgainCheckBox);
+
+        add(createSubmitButton("Upload Cover", e -> uploadCoverButtonActionPerformed()));
 
         // Add Submit buttons with actions
         add(createSubmitButton("Submit New Game", e -> addNewGame()));
@@ -160,6 +173,7 @@ public class GameTrackerGUI extends JFrame {
             youtubeField.setText(selectedGame.getYoutubeLink());
             referenceField.setText(selectedGame.getReference());
             commentsField.setText(selectedGame.getComments());
+            coverImagePathField.setText(selectedGame.getCoverImagePath());
             completedCheckBox.setSelected(selectedGame.getGameCompleted());
             runAgainCheckBox.setSelected(selectedGame.getRunback());
         }
@@ -170,18 +184,37 @@ public class GameTrackerGUI extends JFrame {
      */
     private void addNewGame() {
         // Collect inputs and create a new Game object
-        String title = titleField.getText();
+        String title = titleField.getText().trim();
+
+        if (title.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Game title cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Don't proceed if the title is empty
+        }
+
+        // Check if the game title already exists
+        for (GameInfo game : gameManager.getGames()) {
+            if (game.getGameTitle().equalsIgnoreCase(title)) {
+                JOptionPane.showMessageDialog(this, "A game with this title already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; 
+            }
+        }
+
         String platform = platformField.getText();
         boolean completed = completedCheckBox.isSelected();
         String comments = commentsField.getText();
         String youtubeLink = youtubeField.getText();
         String reference = referenceField.getText();
         boolean runAgain = runAgainCheckBox.isSelected();
+        
+        // Get the cover file path (if any)
+        String coverFilePath = (selectedCoverFile != null) ? selectedCoverFile.getAbsolutePath() : "";
 
-        // Try to add the game and refresh the dropdown and clear the fields
-        if (gameManager.addGame(title, platform, completed, comments, youtubeLink, reference, runAgain)) {
-            populateGameDropdown(); // Update the dropdown with the new game
-            clearFields(); // Clear all fields after adding a new game
+        // Add the game with the cover path (empty if none selected)
+        if (gameManager.addGame(title, platform, completed, comments, youtubeLink, reference, runAgain, coverFilePath)) {
+            populateGameDropdown(); // Update the dropdown list
+            clearFields(); // Clear the form for next input
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add new game.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -192,13 +225,81 @@ public class GameTrackerGUI extends JFrame {
         // Get the selected game from the dropdown
         String selectedTitle = (String) gameDropdown.getSelectedItem();
         GameInfo selectedGame = gameManager.getGameByTitle(selectedTitle);
-
+    
         // If the selected game exists, update its details
         if (selectedGame != null) {
             String newTitle = titleField.getText();
-            gameManager.updateGame(selectedGame, newTitle, platformField.getText(), youtubeField.getText(), referenceField.getText(),
-                                   commentsField.getText(), completedCheckBox.isSelected(), runAgainCheckBox.isSelected());
-            populateGameDropdown();
+            
+            // Convert cover image path string to File
+            File coverFile = new File(coverImagePathField.getText());
+    
+            // Ensure the file exists and is valid before passing to updateGame
+            if (coverFile.exists() && coverFile.isFile()) {
+                
+                // Check if the cover file has changed
+                if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {
+                    // Delete the old cover image if it exists
+                    File oldCoverFile = new File(selectedGame.getCoverImagePath());
+                    if (oldCoverFile.exists() && oldCoverFile.isFile()) {
+                        boolean deleted = oldCoverFile.delete();  // Attempt to delete the old file
+                        if (!deleted) {
+                            JOptionPane.showMessageDialog(null, "Failed to delete the old cover image.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+    
+                    // Copy the new cover image to the data/cover directory
+                    File targetDirectory = new File("data/cover");
+                    if (!targetDirectory.exists()) {
+                        targetDirectory.mkdirs();  // Create the directory if it doesn't exist
+                    }
+    
+                    // Keep the original file name
+                    String originalFileName = coverFile.getName();
+                    File newCoverFile = new File(targetDirectory, originalFileName);
+    
+                    // Handle file name conflict: if the file already exists, add a suffix
+                    int counter = 1;
+                    while (newCoverFile.exists()) {
+                        // Append a number to the original name to avoid conflict
+                        String nameWithoutExtension = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+                        String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+                        newCoverFile = new File(targetDirectory, nameWithoutExtension + "_" + counter + extension);
+                        counter++;
+                    }
+    
+                    // Copy the file to the target directory
+                    try {
+                        Files.copy(coverFile.toPath(), newCoverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        // Update the cover image path with the new file's path in the data/cover folder
+                        selectedGame.setCoverImagePath(newCoverFile.getPath());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error copying cover image.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+    
+                // Now update other details and save
+                gameManager.updateGame(selectedGame, newTitle, platformField.getText(), youtubeField.getText(), referenceField.getText(),
+                                       commentsField.getText(), completedCheckBox.isSelected(), runAgainCheckBox.isSelected(), selectedGame.getCoverImagePath());
+                populateGameDropdown();  // Refresh dropdown
+            } else {
+                JOptionPane.showMessageDialog(null, "Cover image file is invalid or doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private void uploadCoverButtonActionPerformed() {
+        // Open a file chooser to select the cover image
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Image files", "jpg", "png"));
+        int result = fileChooser.showOpenDialog(this);
+        
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedCoverFile = fileChooser.getSelectedFile(); // Get the selected file
+            coverImagePathField.setText(selectedCoverFile.getAbsolutePath()); // Update the path field
+            System.out.println("Selected Cover File: " + selectedCoverFile.getAbsolutePath()); // Debug print
         }
     }
 
@@ -230,7 +331,10 @@ public class GameTrackerGUI extends JFrame {
         platformField.setText("");
         youtubeField.setText("");
         commentsField.setText("");
+        coverImagePathField.setText("");
         referenceField.setText("");
+        selectedCoverFile = null;
+        
         completedCheckBox.setSelected(false);
         runAgainCheckBox.setSelected(false);
     }

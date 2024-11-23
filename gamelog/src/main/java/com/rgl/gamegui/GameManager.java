@@ -4,6 +4,10 @@ import com.rgl.gamedata.GameInfo;
 import com.rgl.jsonutility.JsonHandler;
 import javax.swing.JOptionPane;
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -54,20 +58,46 @@ public class GameManager {
      * @param runAgain    true if the game is worth replaying, false otherwise.
      * @return true if the game was added successfully, false if the title is empty or already exists.
      */
-    public boolean addGame(String title, String platform, boolean completed, String comments, String youtubeLink, String reference, boolean runAgain) {
-        if (title.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please enter a game title.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+    public boolean addGame(String title, String platform, boolean completed, String comments, 
+    String youtubeLink, String reference, boolean runAgain, String coverFilePath) {
+        try {
+        // If a cover file path is provided (not empty), handle the file copy
+        if (coverFilePath != null && !coverFilePath.isEmpty()) {
+        File coverFile = new File(coverFilePath); // This is the selected file path
+
+        // Get the directory where the JAR is located
+        String jarDir = new File(GameManager.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+
+        // Build the absolute path for the cover file in the "data/cover" directory
+        String coverPath = jarDir + File.separator + "data" + File.separator + "cover" + File.separator + coverFile.getName();
+        File targetFile = new File(coverPath);
+
+        // Ensure the directories exist
+        targetFile.getParentFile().mkdirs();
+
+        // Copy the file to the target directory
+        Files.copy(coverFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        // Store the relative path for JSON saving (relative to the "data" folder)
+        coverFilePath = "data/cover/" + coverFile.getName();
         }
-        if (games.stream().anyMatch(game -> game.getGameTitle().equalsIgnoreCase(title))) {
-            JOptionPane.showMessageDialog(null, "A game with this title already exists. Please choose a different title.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        GameInfo newGame = new GameInfo(title, platform, completed, comments, youtubeLink, reference, runAgain);
+
+        System.out.println("Cover File Path: " + coverFilePath);  // Debugging step
+
+        // Proceed with creating the new game using the cover file path (which will be relative)
+        GameInfo newGame = new GameInfo(title, platform, completed, comments, youtubeLink, reference, runAgain, coverFilePath);
         games.add(newGame);
-        JsonHandler.saveGamesInfo(games);
+
+        // Serialize the gameList to JSON (assuming you have a method for this)
+        JsonHandler.saveGamesInfo(games);;  // Call your method to save the game list to JSON
+
         return true;
-    }
+
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Failed to save cover image: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+}
 
     /**
      * Retrieves a game by its title.
@@ -91,7 +121,7 @@ public class GameManager {
      * @param completed  true if the game is completed, false otherwise.
      * @param runAgain   true if the game is worth replaying, false otherwise.
      */
-    public void updateGame(GameInfo game, String title, String platform, String youtubeLink, String reference, String comments, boolean completed, boolean runAgain) {
+    public void updateGame(GameInfo game, String title, String platform, String youtubeLink, String reference, String comments, boolean completed, boolean runAgain, String coverImagePath) {
         game.setGameTitle(title);
         game.setSystem(platform);
         game.setYoutubeLink(youtubeLink);
@@ -99,6 +129,33 @@ public class GameManager {
         game.setComments(comments);
         game.setGameCompleted(completed);
         game.setRunAgain(runAgain);
+    
+        // Handle cover image update if a new file is selected
+        if (coverImagePath != null && !coverImagePath.isEmpty()) {
+            File coverFile = new File(coverImagePath);
+            String absolutePath = coverFile.getAbsolutePath();
+            game.setCoverImagePath(absolutePath);  // Set the absolute path in the GameInfo object
+    
+            try {
+                File targetFile = new File(absolutePath);  // Use absolute path
+                targetFile.getParentFile().mkdirs(); // Ensure the directory exists
+    
+                // Copy the new cover image to the correct location
+                Files.copy(coverFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    
+                // Update the cover image path in the GameInfo object
+                game.setCoverImagePath(targetFile.getPath());  // No need to do this twice
+    
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Failed to update cover image: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            // If no cover image is provided, ensure it's cleared or set to default path
+            game.setCoverImagePath("");  // Clear the cover image path if not selected
+        }
+    
+        // Save the updated game data to JSON
         JsonHandler.saveGamesInfo(games);
     }
 
