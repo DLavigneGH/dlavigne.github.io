@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import com.rgl.gamedata.GameInfo;
+import com.rgl.gamedata.GameManager;
 import com.rgl.helpers.ResourceExtractor;
 
 /**

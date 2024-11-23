@@ -1,6 +1,5 @@
-package com.rgl.gamegui;
+package com.rgl.gamedata;
 
-import com.rgl.gamedata.GameInfo;
 import com.rgl.jsonutility.JsonHandler;
 import javax.swing.JOptionPane;
 import java.util.List;
