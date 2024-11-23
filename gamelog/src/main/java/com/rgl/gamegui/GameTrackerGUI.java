@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import com.rgl.gamedata.GameInfo;
+import com.rgl.helpers.ResourceExtractor;
 
 /**
  * Implements the graphical user interface (GUI) for the Game Tracker application.
@@ -34,6 +35,8 @@ import com.rgl.gamedata.GameInfo;
     private ButtonsPanel buttonsPanel;
 
     public GameTrackerGUI() {
+
+        ResourceExtractor.copyResourcesToTarget("index.html", "script.js");
 
         // Initialize the GameManager
         gameManager = new GameManager();
@@ -284,4 +287,5 @@ import com.rgl.gamedata.GameInfo;
             System.out.println("Desktop is not supported. Cannot open the browser.");
         }
     }
+
 }
