@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 import com.rgl.gamedata.GameInfo;
 import com.rgl.helpers.ResourceExtractor;
@@ -25,29 +23,20 @@ import com.rgl.helpers.ResourceExtractor;
  public class GameTrackerGUI extends JFrame {
 
     private GameManager gameManager;
-
-    // Dropdown
     private JComboBox<String> gameDropdown;
-    
-    // Panels
     private TextFieldsPanel textFieldsPanel;
     private CheckboxesPanel checkboxesPanel;
     private ButtonsPanel buttonsPanel;
 
     public GameTrackerGUI() {
-
         ResourceExtractor.copyResourcesToTarget("index.html", "script.js");
-
-        // Initialize the GameManager
         gameManager = new GameManager();
         gameManager.loadGames();
-
-        // Initialize the panels
         textFieldsPanel = new TextFieldsPanel();
         checkboxesPanel = new CheckboxesPanel();
         buttonsPanel = new ButtonsPanel();
 
-        // Set up the window title, size, and layout
+        // Set up the window and layout
         setTitle("Game Tracker");
         setSize(400, 420);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,10 +50,9 @@ import com.rgl.helpers.ResourceExtractor;
         add(checkboxesPanel);
         add(buttonsPanel);
 
-        // Populate dropdown
-        populateGameDropdown();
+        populateGameDropdown(); // Populate dropdown with games
 
-        // Button actions
+        // Add button actions
         buttonsPanel.addButtonActionListener(buttonsPanel.getUploadCoverButton(), e -> uploadCoverButtonActionPerformed());
         buttonsPanel.addButtonActionListener(buttonsPanel.getSubmitNewGameButton(), e -> addNewGame());
         buttonsPanel.addButtonActionListener(buttonsPanel.getSaveChangesButton(), e -> saveGameChanges());
@@ -75,66 +63,52 @@ import com.rgl.helpers.ResourceExtractor;
         gameDropdown.addActionListener(e -> updateUIFromSelectedGame());
     }
 
-    /**
-     * Populates the dropdown with the list of games from GameManager.
-     */
+    // UI-related methods
     private void populateGameDropdown() {
-        // Clear the dropdown and add a default option
         gameDropdown.removeAllItems();
         gameDropdown.addItem("<Choose a Game or Add New>");
-
-        // Add each game's title to the dropdown
         for (GameInfo game : gameManager.getGames()) {
-            System.out.println("Adding to dropdown: " + game.getGameTitle());  // Debug print
             gameDropdown.addItem(game.getGameTitle());
         }
     }
 
-    /**
-     * Updates the UI fields when a game is selected from the dropdown.
-     */
     private void updateUIFromSelectedGame() {
         String selectedTitle = (String) gameDropdown.getSelectedItem();
         if ("<Choose a Game or Add New>".equals(selectedTitle)) {
-            clearFields(); // Clear fields if the user selects the default option
+            clearFields();
             return;
         }
-    
-        // Retrieve the selected game from GameManager
+
         GameInfo selectedGame = gameManager.getGameByTitle(selectedTitle);
-        if (selectedGame == null) {
-            System.out.println("Selected game not found: " + selectedTitle); // Debug print
-            return;
-        }
         if (selectedGame != null) {
-            // Populate the fields with the selected game's details
             textFieldsPanel.getTitleField().setText(selectedGame.getGameTitle());
             textFieldsPanel.getPlatformField().setText(selectedGame.getSystem());
             textFieldsPanel.getYoutubeField().setText(selectedGame.getYoutubeLink());
             textFieldsPanel.getCommentsField().setText(selectedGame.getComments());
             textFieldsPanel.getReferenceField().setText(selectedGame.getReference());
-    
-            // Convert the relative cover image path to the absolute path
+
             String relativeCoverPath = selectedGame.getCoverImagePath();
             if (!relativeCoverPath.isEmpty()) {
-                // Convert the relative path to an absolute path
                 File coverFile = new File(relativeCoverPath);
                 textFieldsPanel.getCoverImagePathField().setText(coverFile.getAbsolutePath());
             } else {
-                textFieldsPanel.getCoverImagePathField().setText(""); // Clear the field if no cover is selected
+                textFieldsPanel.getCoverImagePathField().setText("");
             }
-    
+
             checkboxesPanel.getCompletedCheckBox().setSelected(selectedGame.getGameCompleted());
             checkboxesPanel.getRunAgainCheckBox().setSelected(selectedGame.getRunback());
         }
     }
 
-    /**
-     * Handles the addition of a new game.
-     */
+    // Button action handlers
     private void addNewGame() {
-        // Collect data from the panels
         String title = textFieldsPanel.getTitleField().getText();
+
+        if (title.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Title is a required field.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String platform = textFieldsPanel.getPlatformField().getText();
         boolean completed = checkboxesPanel.getCompletedCheckBox().isSelected();
         String comments = textFieldsPanel.getCommentsField().getText();
@@ -142,125 +116,66 @@ import com.rgl.helpers.ResourceExtractor;
         String reference = textFieldsPanel.getReferenceField().getText();
         boolean runAgain = checkboxesPanel.getRunAgainCheckBox().isSelected();
         String coverFilePath = textFieldsPanel.getCoverImagePathField().getText();
-    
+
         if (gameManager.addGame(title, platform, completed, comments, youtubeLink, reference, runAgain, coverFilePath)) {
-            populateGameDropdown();  // Update the dropdown list
-            clearFields(); // Clear the form for next input
+            populateGameDropdown();
+            clearFields();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add new game.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-
-    /**
-     * Saves changes made to an existing game.
-     */
     private void saveGameChanges() {
-        // Get the selected game from the dropdown
         String selectedTitle = (String) gameDropdown.getSelectedItem();
         GameInfo selectedGame = gameManager.getGameByTitle(selectedTitle);
-    
-        // If the selected game exists, update its details
+
         if (selectedGame != null) {
             String newTitle = textFieldsPanel.getTitleField().getText();
-        
-            // Get cover image path input (it can be empty if no new cover is provided)
+            String platform = textFieldsPanel.getPlatformField().getText();
+            String youtubeLink = textFieldsPanel.getYoutubeField().getText();
+            String reference = textFieldsPanel.getReferenceField().getText();
+            String comments = textFieldsPanel.getCommentsField().getText();
+            boolean completed = checkboxesPanel.getCompletedCheckBox().isSelected();
+            boolean runAgain = checkboxesPanel.getRunAgainCheckBox().isSelected();
             String coverImagePath = textFieldsPanel.getCoverImagePathField().getText();
-        
-            // If a cover image path is provided, check if it exists and is valid
-            if (!coverImagePath.isEmpty()) {
-                File coverFile = new File(coverImagePath);
-        
-                // Ensure the file exists and is valid before passing to updateGame
-                if (coverFile.exists() && coverFile.isFile()) {
-        
-                    // Check if the cover file has changed
-                    if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {    
-                        // Copy the new cover image to the data/cover directory
-                        File targetDirectory = new File("data/cover");
-                        if (!targetDirectory.exists()) {
-                            targetDirectory.mkdirs();  // Create the directory if it doesn't exist
-                        }
-        
-                        // Keep the original file name
-                        String originalFileName = coverFile.getName();
-                        File newCoverFile = new File(targetDirectory, originalFileName);
-        
-                        // Handle file name conflict if the file already exists
-                        int counter = 1;
-                        while (newCoverFile.exists()) {
-                            String nameWithoutExtension = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
-                            String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
-                            newCoverFile = new File(targetDirectory, nameWithoutExtension + "_" + counter + extension);
-                            counter++;
-                        }
-        
-                        // Copy the file to the target directory
-                        try {
-                            Files.copy(coverFile.toPath(), newCoverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                            // Update the cover image path with the relative path in the data/cover folder
-                            selectedGame.setCoverImagePath("data/cover/" + newCoverFile.getName());  // Relative path for JSON
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            JOptionPane.showMessageDialog(null, "Error copying cover image.", "Error", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cover image file is invalid or doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            } else {
-                // If no cover image is provided, keep the existing cover image path
-                selectedGame.setCoverImagePath(selectedGame.getCoverImagePath());
-            }
-    
-            // Now update other details and save
-            gameManager.updateGame(selectedGame, newTitle, textFieldsPanel.getPlatformField().getText(), textFieldsPanel.getYoutubeField().getText(), 
-                textFieldsPanel.getReferenceField().getText(), textFieldsPanel.getCommentsField().getText(), 
-                checkboxesPanel.getCompletedCheckBox().isSelected(), checkboxesPanel.getRunAgainCheckBox().isSelected(), selectedGame.getCoverImagePath());
-            
-            populateGameDropdown();  // Refresh dropdown
-        }
-    }
-    private void uploadCoverButtonActionPerformed() {
-        // Open a file chooser to select the cover image
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Image files", "jpg", "png"));
-        int result = fileChooser.showOpenDialog(this);
-        
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedCoverFile = fileChooser.getSelectedFile(); // Get the selected file
-            textFieldsPanel.getCoverImagePathField().setText(selectedCoverFile.getAbsolutePath()); // Update the path field
-            System.out.println("Selected Cover File: " + selectedCoverFile.getAbsolutePath()); // Debug print
+
+            gameManager.saveGameChanges(selectedGame, newTitle, platform, youtubeLink, reference, comments, completed, runAgain, coverImagePath);
+            populateGameDropdown();
         }
     }
 
-    /**
-     * Deletes the selected game.
-     */
     private void deleteGame() {
         String selectedTitle = (String) gameDropdown.getSelectedItem();
         GameInfo selectedGame = gameManager.getGameByTitle(selectedTitle);
-
+    
         if (selectedGame != null) {
             int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this game?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                gameManager.deleteGame(selectedGame);
-                populateGameDropdown(); // Update the dropdown to remove the deleted game
-                clearFields(); // Clear the fields
+                if (gameManager.deleteGame(selectedGame)) {
+                    populateGameDropdown();
+                    clearFields();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete the game.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "No game selected for deletion.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    private void uploadCoverButtonActionPerformed() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Image files", "jpg", "png"));
+        int result = fileChooser.showOpenDialog(this);
 
-    /**
-     * Clears all the input fields and checkboxes.
-     */
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedCoverFile = fileChooser.getSelectedFile();
+            textFieldsPanel.getCoverImagePathField().setText(selectedCoverFile.getAbsolutePath());
+        }
+    }
+
+    // Utility methods
     private void clearFields() {
-
         textFieldsPanel.getTitleField().setText("");
         textFieldsPanel.getPlatformField().setText("");
         textFieldsPanel.getYoutubeField().setText("");
@@ -271,11 +186,6 @@ import com.rgl.helpers.ResourceExtractor;
         checkboxesPanel.getRunAgainCheckBox().setSelected(false);
     }
 
-    /**
-     * Opens a browser to the provided URL.
-     *
-     * @param url the URL to open.
-     */
     private static void openBrowser(String url) {
         if (Desktop.isDesktopSupported()) {
             try {
@@ -283,9 +193,6 @@ import com.rgl.helpers.ResourceExtractor;
             } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
-        } else {
-            System.out.println("Desktop is not supported. Cannot open the browser.");
         }
     }
-
 }

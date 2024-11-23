@@ -100,6 +100,66 @@ public class GameManager {
 }
 
     /**
+     * Updates an existing game and saves the changes to the JSON file.
+     *
+     * @param selectedGame the game object to update.
+     * @param title        the new title of the game.
+     * @param platform     the new platform of the game.
+     * @param youtubeLink  the new YouTube link.
+     * @param reference    the new reference for the game.
+     * @param comments     new comments about the game.
+     * @param completed    true if the game is completed, false otherwise.
+     * @param runAgain     true if the game is worth replaying, false otherwise.
+     * @param coverImagePath the new cover image path (can be empty).
+     */
+    public void saveGameChanges(GameInfo selectedGame, String title, String platform, String youtubeLink, 
+        String reference, String comments, boolean completed, boolean runAgain, String coverImagePath) {
+        
+        // If a new cover image path is provided, handle the file copy process
+        if (coverImagePath != null && !coverImagePath.isEmpty()) {
+            File coverFile = new File(coverImagePath);
+            
+            // Ensure the file exists and is valid
+            if (coverFile.exists() && coverFile.isFile()) {
+                // If the cover image has changed, copy the new image to the target directory
+                if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {
+                    // Handle file copying (same logic as before)
+                    File targetDirectory = new File("data/cover");
+                    if (!targetDirectory.exists()) {
+                        targetDirectory.mkdirs(); // Create the directory if it doesn't exist
+                    }
+
+                     File newCoverFile = new File(targetDirectory, coverFile.getName());
+                    // Copy the file to the target directory
+                    try {
+                        Files.copy(coverFile.toPath(), newCoverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        selectedGame.setCoverImagePath("data/cover/" + newCoverFile.getName()); // Update the cover path with relative path
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error copying cover image.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Cover image file is invalid or doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        // Now update other details of the game
+        selectedGame.setGameTitle(title);
+        selectedGame.setSystem(platform);
+        selectedGame.setYoutubeLink(youtubeLink);
+        selectedGame.setReference(reference);
+        selectedGame.setComments(comments);
+        selectedGame.setGameCompleted(completed);
+        selectedGame.setRunAgain(runAgain);
+
+        // Serialize the updated game list to JSON
+        JsonHandler.saveGamesInfo(games); // Update the list in JSON file
+    }
+
+    /**
      * Retrieves a game by its title.
      *
      * @param title the title of the game to retrieve.
@@ -164,8 +224,21 @@ public class GameManager {
      *
      * @param game the game to delete.
      */
-    public void deleteGame(GameInfo game) {
-        games.remove(game);
+    public boolean deleteGame(GameInfo game) {
+        // Remove the cover image if it exists
+        String coverImagePath = game.getCoverImagePath();
+        if (coverImagePath != null && !coverImagePath.isEmpty()) {
+            File coverImageFile = new File(coverImagePath);
+            if (coverImageFile.exists()) {
+                boolean deleted = coverImageFile.delete();
+                if (!deleted) {
+                    System.out.println("Failed to delete cover image: " + coverImagePath);
+                    return false;
+                }
+            }
+        }
+        boolean removed = games.remove(game);
         JsonHandler.saveGamesInfo(games);
+        return removed;
     }
 }
