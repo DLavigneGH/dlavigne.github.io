@@ -24,6 +24,8 @@ public class GameManager {
 
     /**
      * Initializes the list of games.
+     * The list is initially empty and can be populated by loading game data
+     * from the JSON file using {@link #loadGames()}.
      */
     public GameManager() {
         games = new ArrayList<>();
@@ -40,6 +42,8 @@ public class GameManager {
 
     /**
      * Loads games from the JSON file and sorts them alphabetically by title.
+     * This method retrieves all game information from the JSON file and sorts
+     * the list of games based on the game title.
      */
     public void loadGames() {
         games = JsonHandler.loadGamesInfo();
@@ -48,7 +52,9 @@ public class GameManager {
 
     /**
      * Adds a new game to the list and saves it to the JSON file.
-     *
+     * If a cover file is provided, the method will handle the file copy to 
+     * the target directory. The cover image path will be saved in the JSON file.
+     * 
      * @param title       the title of the game.
      * @param platform    the platform of the game (e.g., PC, NES).
      * @param completed   true if the game is completed, false otherwise.
@@ -56,6 +62,7 @@ public class GameManager {
      * @param youtubeLink a YouTube link related to the game.
      * @param reference   reference or metadata for the game.
      * @param runAgain    true if the game is worth replaying, false otherwise.
+     * @param coverFilePath the path to the cover image (optional).
      * @return true if the game was added successfully, false if the title is empty or already exists.
      */
     public boolean addGame(String title, String platform, boolean completed, String comments, 
@@ -101,7 +108,10 @@ public class GameManager {
 
     /**
      * Updates an existing game and saves the changes to the JSON file.
-     *
+     * The method handles updating all details of a game, including the cover
+     * image if provided. If the cover image is different, it will be copied
+     * to the target directory and the path will be updated.
+     * 
      * @param selectedGame the game object to update.
      * @param title        the new title of the game.
      * @param platform     the new platform of the game.
@@ -110,7 +120,7 @@ public class GameManager {
      * @param comments     new comments about the game.
      * @param completed    true if the game is completed, false otherwise.
      * @param runAgain     true if the game is worth replaying, false otherwise.
-     * @param coverImagePath the new cover image path (can be empty).
+     * @param coverImagePath the new cover image path (optional).
      */
     public void saveGameChanges(GameInfo selectedGame, String title, String platform, String youtubeLink, 
         String reference, String comments, boolean completed, boolean runAgain, String coverImagePath) {
@@ -221,8 +231,10 @@ public class GameManager {
 
     /**
      * Deletes a game from the list and updates the JSON file.
-     *
+     * This method will also delete the associated cover image if it exists.
+     * 
      * @param game the game to delete.
+     * @return true if the game was successfully deleted, false otherwise.
      */
     public boolean deleteGame(GameInfo game) {
         // Remove the cover image if it exists

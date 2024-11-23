@@ -4,9 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * A panel containing buttons for managing game-related actions in the Game Tracker application.
+ * This panel includes buttons for uploading covers, submitting new games, saving changes,
+ * deleting games, and opening an HTML view.
+ */
 public class ButtonsPanel extends JPanel {
     private JButton uploadCoverButton, submitNewGameButton, saveChangesButton, deleteGameButton, openHtmlButton;
 
+    /**
+     * Constructs a new {@code ButtonsPanel} and initializes buttons for various game management actions.
+     * The panel uses a centered flow layout to arrange the buttons.
+     */
     public ButtonsPanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -25,7 +34,17 @@ public class ButtonsPanel extends JPanel {
         add(openHtmlButton);
     }
 
-    // Getter methods to access buttons
+    /**
+     * Adds an {@code ActionListener} to a specified button.
+     *
+     * @param button          The {@code JButton} to which the {@code ActionListener} will be added.
+     * @param actionListener  The {@code ActionListener} that will handle the button's action events.
+     */
+    public void addButtonActionListener(JButton button, ActionListener actionListener) {
+        button.addActionListener(actionListener);
+    }
+
+    // Getter methods
     public JButton getUploadCoverButton() {
         return uploadCoverButton;
     }
@@ -44,10 +63,5 @@ public class ButtonsPanel extends JPanel {
 
     public JButton getOpenHtmlButton() {
         return openHtmlButton;
-    }
-
-    // Method to add ActionListener to buttons
-    public void addButtonActionListener(JButton button, ActionListener actionListener) {
-        button.addActionListener(actionListener);
     }
 }

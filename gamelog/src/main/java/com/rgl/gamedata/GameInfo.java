@@ -29,6 +29,7 @@ public class GameInfo {
      * @param youtubeLink  a link to a relevant YouTube video about the game
      * @param referencedBy a reference to the source or person that suggested or referenced the game
      * @param runAgain     whether the game is worth playing again (true if it is, false otherwise)
+     * @param coverImagePath the path of the cover image of the game
      */
     public GameInfo(String gameTitle, String system, boolean gameCompleted, String comments, String youtubeLink, String referencedBy, boolean runAgain, String coverImagePath) {
         this.gameTitle = gameTitle;

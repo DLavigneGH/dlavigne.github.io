@@ -28,6 +28,11 @@ import com.rgl.helpers.ResourceExtractor;
     private CheckboxesPanel checkboxesPanel;
     private ButtonsPanel buttonsPanel;
 
+    /**
+     * Constructs a new {@code GameTrackerGUI} instance, initializing the user interface
+     * components and linking them to the {@code GameManager}.
+     * Copies required resources, loads games, and sets up the GUI layout.
+     */
     public GameTrackerGUI() {
         ResourceExtractor.copyResourcesToTarget("index.html", "script.js");
         gameManager = new GameManager();
@@ -64,6 +69,9 @@ import com.rgl.helpers.ResourceExtractor;
     }
 
     // UI-related methods
+    /**
+     * Populates the dropdown menu with the titles of games managed by the {@code GameManager}.
+     */
     private void populateGameDropdown() {
         gameDropdown.removeAllItems();
         gameDropdown.addItem("<Choose a Game or Add New>");
@@ -72,6 +80,10 @@ import com.rgl.helpers.ResourceExtractor;
         }
     }
 
+    /**
+     * Updates the user interface fields to reflect the details of the selected game.
+     * If no game is selected, clears the fields.
+     */
     private void updateUIFromSelectedGame() {
         String selectedTitle = (String) gameDropdown.getSelectedItem();
         if ("<Choose a Game or Add New>".equals(selectedTitle)) {
@@ -101,6 +113,10 @@ import com.rgl.helpers.ResourceExtractor;
     }
 
     // Button action handlers
+    /**
+     * Handles the addition of a new game by validating input fields and
+     * updating the {@code GameManager}.
+     */
     private void addNewGame() {
         String title = textFieldsPanel.getTitleField().getText();
 
@@ -124,7 +140,9 @@ import com.rgl.helpers.ResourceExtractor;
             JOptionPane.showMessageDialog(this, "Failed to add new game.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /**
+     * Saves changes to the currently selected game by updating the {@code GameManager}.
+     */
     private void saveGameChanges() {
         String selectedTitle = (String) gameDropdown.getSelectedItem();
         GameInfo selectedGame = gameManager.getGameByTitle(selectedTitle);
@@ -144,6 +162,9 @@ import com.rgl.helpers.ResourceExtractor;
         }
     }
 
+    /**
+     * Deletes the currently selected game after user confirmation.
+     */
     private void deleteGame() {
         String selectedTitle = (String) gameDropdown.getSelectedItem();
         GameInfo selectedGame = gameManager.getGameByTitle(selectedTitle);
@@ -163,6 +184,9 @@ import com.rgl.helpers.ResourceExtractor;
         }
     }
 
+    /**
+     * Handles the upload of a cover image by showing a file chooser dialog and updating the appropriate field.
+     */
     private void uploadCoverButtonActionPerformed() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("Image files", "jpg", "png"));
@@ -175,6 +199,9 @@ import com.rgl.helpers.ResourceExtractor;
     }
 
     // Utility methods
+    /**
+     * Clears all text fields and checkboxes in the user interface.
+     */
     private void clearFields() {
         textFieldsPanel.getTitleField().setText("");
         textFieldsPanel.getPlatformField().setText("");
@@ -185,7 +212,12 @@ import com.rgl.helpers.ResourceExtractor;
         checkboxesPanel.getCompletedCheckBox().setSelected(false);
         checkboxesPanel.getRunAgainCheckBox().setSelected(false);
     }
-
+    
+    /**
+     * Opens a browser window to the specified URL.
+     *
+     * @param url The URL to open.
+     */
     private static void openBrowser(String url) {
         if (Desktop.isDesktopSupported()) {
             try {

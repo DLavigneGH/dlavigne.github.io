@@ -18,18 +18,17 @@ import java.util.List;
 public class JsonHandler {
 
     // Path to the persistent directory where the gameTable.json file will be stored
-    private static final String PERSISTENT_DIR = "./data";  // Directory where we store the JSON file
+    private static final String PERSISTENT_DIR = "./data"; 
     private static final String FILE_PATH = Paths.get(PERSISTENT_DIR, "gameTable.json").toString();
 
-    // Ensure the directory exists
+    // Ensure the directory exists, make it if not
     static {
         try {
-            Files.createDirectories(Paths.get(PERSISTENT_DIR));  // Create the directory if it doesn't exist
+            Files.createDirectories(Paths.get(PERSISTENT_DIR)); 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     
     /**
      * Saves the list of games to the JSON file in the persistent directory.
@@ -57,14 +56,15 @@ public class JsonHandler {
             // If the file doesn't exist, load the initial data from resources and create the file
             return loadGamesFromResources();
         }
-
         try (FileReader reader = new FileReader(FILE_PATH)) {
+            // Read from file and convert to Game[]
             Gson gson = new Gson();
-            GameInfo[] gameArray = gson.fromJson(reader, GameInfo[].class);  // Read from file and convert to Game[]
+            GameInfo[] gameArray = gson.fromJson(reader, GameInfo[].class); 
             return new ArrayList<>(List.of(gameArray));
         } catch (IOException e) {
+            // Return an empty list if something goes wrong
             e.printStackTrace();
-            return new ArrayList<>();  // Return an empty list if something goes wrong
+            return new ArrayList<>(); 
         }
     }
 
