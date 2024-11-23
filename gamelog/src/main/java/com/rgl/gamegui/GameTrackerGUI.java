@@ -157,7 +157,7 @@ import com.rgl.helpers.ResourceExtractor;
             boolean runAgain = checkboxesPanel.getRunAgainCheckBox().isSelected();
             String coverImagePath = textFieldsPanel.getCoverImagePathField().getText();
 
-            gameManager.saveGameChanges(selectedGame, newTitle, platform, youtubeLink, reference, comments, completed, runAgain, coverImagePath);
+            gameManager.updateOrSaveGame(selectedGame, selectedTitle, platform, youtubeLink, reference, comments, completed, runAgain, coverImagePath);
             populateGameDropdown();
         }
     }
@@ -212,7 +212,7 @@ import com.rgl.helpers.ResourceExtractor;
         checkboxesPanel.getCompletedCheckBox().setSelected(false);
         checkboxesPanel.getRunAgainCheckBox().setSelected(false);
     }
-    
+
     /**
      * Opens a browser window to the specified URL.
      *
