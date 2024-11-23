@@ -41,7 +41,7 @@ function displayGames(gameList) {
             const coverImagePopup = document.createElement('span');
             coverImagePopup.classList.add('cover-popup');
             coverImagePopup.setAttribute('data-image-url', coverImageUrl);
-            coverImagePopup.textContent = '🎮';  // Show an icon to indicate the cover image
+            coverImagePopup.textContent = '🎮';  // Icon to indicate the cover image
 
             // Add event listener for the popup when hovering over the game title
             row.cells[0].appendChild(coverImagePopup);
@@ -51,18 +51,41 @@ function displayGames(gameList) {
     });
 }
 
+// Popup management variables
+let popup; // Track the popup
+
 // To show the popup when hovering over the title
 document.addEventListener('mouseover', function(event) {
     if (event.target.classList.contains('cover-popup')) {
         const imageUrl = event.target.getAttribute('data-image-url');
-        const popup = document.createElement('div');
-        popup.classList.add('popup');
-        popup.innerHTML = `<img src="${imageUrl}" alt="Cover Image" />`;
-        document.body.appendChild(popup);
+        
+        // Create and show the popup only if it doesn't already exist
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.classList.add('popup');
+            popup.innerHTML = `<img src="${imageUrl}" alt="Cover Image" />`;
+            document.body.appendChild(popup);
+        }
+        
+        // Position the popup near the cursor
+        popup.style.position = 'absolute';
+        popup.style.top = `${event.pageY + 10}px`;
+        popup.style.left = `${event.pageX + 10}px`;
+    }
+});
 
-        event.target.addEventListener('mouseout', () => {
-            document.body.removeChild(popup);
-        });
+document.addEventListener('mouseout', function(event) {
+    if (event.target.classList.contains('cover-popup') && popup) {
+        document.body.removeChild(popup);
+        popup = null;  // Reset the popup variable
+    }
+});
+
+// Optional: Update popup position on mouse movement
+document.addEventListener('mousemove', function(event) {
+    if (popup) {
+        popup.style.top = `${event.pageY + 10}px`;
+        popup.style.left = `${event.pageX + 10}px`;
     }
 });
 
@@ -170,6 +193,6 @@ function resetFilter() {
 
     isFilterApplied = false;
 
-    currentGames = [...games];  // Reset to full game list
-    displayGames(currentGames);  // Show all games
+    currentGames = [...games];
+    displayGames(currentGames);
 }
