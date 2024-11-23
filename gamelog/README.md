@@ -5,8 +5,8 @@
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Documentation](#documentation)
   - [Changelog](#changelog)
-  - [TODO](#todo)
 
 # Gamelog project
 
@@ -54,11 +54,12 @@ As mentioned in the IMPORTANT note above, the App launches a HTTP server to serv
 
 `Youtube` field was just for me because I stream my games so I put videos on Youtube.
 
+## Documentation
+
+You can read the Javadoc [here](https://dlavignegh.github.io/dlavigne.github.io/gamelog/target/reports/apidocs/index.html)
+
 ## Changelog
 
-v1.0 - First version done and uploaded to GitHub
-
-## TODO
-
-- Better UI
-- Proper hyperlinks
+v1.0 - First version done and uploaded to GitHub<br>
+v1.1 - Search Field and table sorting<br>
+v1.2 - Ability to add image covers for your games and see as popup in the HTML table<br>
