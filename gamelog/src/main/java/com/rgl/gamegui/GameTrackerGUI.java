@@ -171,36 +171,16 @@ import com.rgl.helpers.ResourceExtractor;
             if (coverFile.exists() && coverFile.isFile()) {
     
                 // Check if the cover file has changed
-                if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {
-                    // Delete the old cover image if it exists
-                    File oldCoverFile = new File(selectedGame.getCoverImagePath());
-                    if (oldCoverFile.exists() && oldCoverFile.isFile()) {
-                        boolean deleted = oldCoverFile.delete();  // Attempt to delete the old file
-                        if (!deleted) {
-                            JOptionPane.showMessageDialog(null, "Failed to delete the old cover image.", "Error", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-                    }
-    
+                if (!coverFile.getPath().equals(selectedGame.getCoverImagePath())) {    
                     // Copy the new cover image to the data/cover directory
                     File targetDirectory = new File("data/cover");
                     if (!targetDirectory.exists()) {
                         targetDirectory.mkdirs();  // Create the directory if it doesn't exist
                     }
     
-                    // Keep the original file name
-                    String originalFileName = coverFile.getName();
-                    File newCoverFile = new File(targetDirectory, originalFileName);
-    
-                    // Handle file name conflict: if the file already exists, add a suffix
-                    int counter = 1;
-                    while (newCoverFile.exists()) {
-                        // Append a number to the original name to avoid conflict
-                        String nameWithoutExtension = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
-                        String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
-                        newCoverFile = new File(targetDirectory, nameWithoutExtension + "_" + counter + extension);
-                        counter++;
-                    }
+                    // // Keep the original file name
+                     String originalFileName = coverFile.getName();
+                     File newCoverFile = new File(targetDirectory, originalFileName);
     
                     // Copy the file to the target directory
                     try {
