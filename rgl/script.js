@@ -7,7 +7,7 @@ let sortTitleAscending = true;      // Track sorting order for titles
 let sortPlatformAscending = true;   // Track sorting order for platforms
 
 // Fetch the JSON file and initialize the games
-fetch('http://localhost:8080/data/gameTable.json')
+fetch('https://dlavignegh.github.io/dlavigne.github.io/rgl/data/gameTable.json')
     .then(response => response.json())
     .then(data => {
         games = data;  // Store the full games array
