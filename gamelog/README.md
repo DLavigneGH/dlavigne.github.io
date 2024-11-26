@@ -54,6 +54,8 @@ As mentioned in the IMPORTANT note above, the App launches a HTTP server to serv
 
 `Youtube` field was just for me because I stream my games so I put videos on Youtube.
 
+You can see the result with my own collection [here](https://dlavignegh.github.io/dlavigne.github.io/rgl/).
+
 ## Documentation
 
 You can read the Javadoc [here](https://dlavignegh.github.io/dlavigne.github.io/gamelog/target/reports/apidocs/index.html)
