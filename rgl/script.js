@@ -37,7 +37,7 @@ function displayGames(gameList) {
 
         // If the game has a cover image, add an image tag for the popup functionality
         if (game.coverImagePath) {
-            const coverImageUrl = 'http://localhost:8080/' + game.coverImagePath.replace(/^.*[\\\/]/, 'data/cover/');  // Convert path to URL
+            const coverImageUrl = 'https://dlavignegh.github.io/dlavigne.github.io/rgl/' + game.coverImagePath.replace(/^.*[\\\/]/, 'data/cover/');  // Convert path to URL
             const coverImagePopup = document.createElement('span');
             coverImagePopup.classList.add('cover-popup');
             coverImagePopup.setAttribute('data-image-url', coverImageUrl);
