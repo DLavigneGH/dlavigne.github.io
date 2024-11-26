@@ -200,26 +200,6 @@
     "runAgain": false
   },
   {
-    "gameTitle": "Parasite Eve (Part 4)",
-    "system": "PS1 (Duckstation)",
-    "comments": "Chrysler Building Floor 1-50",
-    "youtubeLink": "https://youtube.com/live/hlEeY0Ot5w8",
-    "referencedBy": "",
-    "coverImagePath": "data/cover/Parasite Eve.jpg",
-    "gameCompleted": true,
-    "runAgain": false
-  },
-  {
-    "gameTitle": "Parasite Eve (Part 5)",
-    "system": "PS1 (Duckstation)",
-    "comments": "Chrysler Building Floor 51-77",
-    "youtubeLink": "https://youtube.com/live/3R9ledYrx3U",
-    "referencedBy": "",
-    "coverImagePath": "data/cover/Parasite Eve.jpg",
-    "gameCompleted": true,
-    "runAgain": false
-  },
-  {
     "gameTitle": "Parasite Eve (Part 1)",
     "system": "PS1 (Duckstation",
     "comments": "Out of the Subway",
@@ -242,9 +222,29 @@
   {
     "gameTitle": "Parasite Eve (Part 3)",
     "system": "PS1 (Duckstation)",
-    "comments": "",
+    "comments": "To NG+, Chrysler building peek",
     "youtubeLink": "https://www.youtube.com/live/kcebrbCNtD0",
-    "referencedBy": "To NG+, Chrysler building peek",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Parasite Eve.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+    {
+    "gameTitle": "Parasite Eve (Part 4)",
+    "system": "PS1 (Duckstation)",
+    "comments": "Chrysler Building Floor 1-50",
+    "youtubeLink": "https://youtube.com/live/hlEeY0Ot5w8",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Parasite Eve.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Parasite Eve (Part 5)",
+    "system": "PS1 (Duckstation)",
+    "comments": "Chrysler Building Floor 51-77",
+    "youtubeLink": "https://youtube.com/live/3R9ledYrx3U",
+    "referencedBy": "",
     "coverImagePath": "data/cover/Parasite Eve.jpg",
     "gameCompleted": true,
     "runAgain": false
