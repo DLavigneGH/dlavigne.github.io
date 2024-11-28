@@ -7,7 +7,7 @@ let sortTitleAscending = true;      // Track sorting order for titles
 let sortPlatformAscending = true;   // Track sorting order for platforms
 
 // Fetch the JSON file and initialize the games
-fetch('https://dlavignegh.github.io/dlavigne.github.io/rgl/data/gameTable.json')
+fetch('http://localhost:8080/data/gameTable.json')
     .then(response => response.json())
     .then(data => {
         games = data;  // Store the full games array
@@ -37,7 +37,7 @@ function displayGames(gameList) {
 
         // If the game has a cover image, add an image tag for the popup functionality
         if (game.coverImagePath) {
-            const coverImageUrl = 'https://dlavignegh.github.io/dlavigne.github.io/rgl/' + game.coverImagePath.replace(/^.*[\\\/]/, 'data/cover/');  // Convert path to URL
+            const coverImageUrl = 'http://localhost:8080/' + game.coverImagePath.replace(/^.*[\\\/]/, 'data/cover/');  // Convert path to URL
             const coverImagePopup = document.createElement('span');
             coverImagePopup.classList.add('cover-popup');
             coverImagePopup.setAttribute('data-image-url', coverImageUrl);
@@ -58,7 +58,7 @@ let popup; // Track the popup
 document.addEventListener('mouseover', function(event) {
     if (event.target.classList.contains('cover-popup')) {
         const imageUrl = event.target.getAttribute('data-image-url');
-        
+
         // Create and show the popup only if it doesn't already exist
         if (!popup) {
             popup = document.createElement('div');
@@ -66,7 +66,7 @@ document.addEventListener('mouseover', function(event) {
             popup.innerHTML = `<img src="${imageUrl}" alt="Cover Image" />`;
             document.body.appendChild(popup);
         }
-        
+
         // Position the popup near the cursor
         popup.style.position = 'absolute';
         popup.style.top = `${event.pageY + 10}px`;
@@ -92,7 +92,7 @@ document.addEventListener('mousemove', function(event) {
 // Filter games by title based on the search input
 function filterGamesByTitle() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const filteredGames = games.filter(game => 
+    const filteredGames = games.filter(game =>
         game.gameTitle.toLowerCase().includes(searchTerm)  // Filter titles that include the search term
     );
 
@@ -134,7 +134,7 @@ function toggleSortByPlatform() {
 // Filters by completed games based on checkbox state
 function filterCompletedCheckbox() {
     const isChecked = document.getElementById('filterCompletedCheckbox').checked;
-    
+
     isFilterApplied = true;
 
     if (isChecked) {
@@ -149,7 +149,7 @@ function filterCompletedCheckbox() {
 // Filters by 'Run Again' games based on checkbox state
 function filterRunAgainCheckbox() {
     const isChecked = document.getElementById('filterRunAgainCheckbox').checked;
-    
+
     isFilterApplied = true;  // Indicate that a filter is applied
 
     if (isChecked) {
