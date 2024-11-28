@@ -12,11 +12,11 @@
 
 ## Overview
 
-I wanted to learn Java, and as a retro gamer, I created a project to manage a personal game log.   
+I wanted to learn Java, and as a retro gamer, I created a project to manage a personal game log.
 
-This app allows users to add, view, and modify games, keeping track of their game collection easily.  
+This app allows users to add, view, and modify games, keeping track of their game collection easily.
 
-There is also a HTML file if you want to look at your collection!  
+There is also a HTML file if you want to look at your collection!
 
 ## Features
 
@@ -25,7 +25,7 @@ Dynamic Dropdown List: Newly added games appear in a dropdown for easy selection
 Edit Game Information: Modify existing game details as needed.
 HTML Table Generation: Automatically generates an index.html file displaying your game collection in a table format.
 
-**IMPORTANT:** To fetch the JSON data properly from the index HTML, a simple HTTP server is ran from the App. If you close it, you will not see your table. 
+**IMPORTANT:** To fetch the JSON data properly from the index HTML, a simple HTTP server is ran from the App. If you close it, you will not see your table.
 
 Keep the App open and close it when you are done
 
@@ -38,6 +38,8 @@ Project done using Java version "23"
 Download the gamelog jar file and execute it.
 
 ## Usage
+
+![GIF](./doc/tracker.gif)
 
 You will see a `Select Game` dropdown field at the top with all other fields being empty. The first time you boot the App you simply need to add your first game!
 
