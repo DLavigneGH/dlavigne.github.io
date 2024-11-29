@@ -46,6 +46,7 @@ from PySide6.QtWidgets import (
     QDialog,
     QLabel,
     QSizePolicy,
+    QTextBrowser,
     QVBoxLayout,
     QWidget,
 )
@@ -55,10 +56,10 @@ class Ui_wadInfo(object):
     def setupUi(self, wadInfo):
         if not wadInfo.objectName():
             wadInfo.setObjectName("wadInfo")
-        wadInfo.resize(361, 621)
+        wadInfo.resize(729, 835)
         self.verticalLayoutWidget = QWidget(wadInfo)
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(0, 0, 361, 581))
+        self.verticalLayoutWidget.setGeometry(QRect(0, 0, 731, 831))
         self.wadItemLayout = QVBoxLayout(self.verticalLayoutWidget)
         self.wadItemLayout.setObjectName("wadItemLayout")
         self.wadItemLayout.setContentsMargins(0, 0, 0, 0)
@@ -117,6 +118,11 @@ class Ui_wadInfo(object):
         self.visitedCheckBox.setObjectName("visitedCheckBox")
 
         self.wadItemLayout.addWidget(self.visitedCheckBox)
+
+        self.textFile = QTextBrowser(self.verticalLayoutWidget)
+        self.textFile.setObjectName("textFile")
+
+        self.wadItemLayout.addWidget(self.textFile)
 
         self.retranslateUi(wadInfo)
 
