@@ -1,0 +1,73 @@
+{
+    "content": {
+        "file": [
+            {
+                "id": 2046,
+                "title": "Shadows of Darkness",
+                "dir": "levels/doom2/0-9/",
+                "filename": "2shadows.zip",
+                "size": 66530,
+                "age": 800694000,
+                "date": "1995-05-17",
+                "author": "Sean Birkel",
+                "email": null,
+                "description": "This level is for DOOM2, not DOOM (a DOOM version is out on BBSs), MAP01.\nI have included difficulty settings...they aren't as accurate as I'd like 'em.\nCooperative play is recommended, deathmatch is good too (I put all the \n        deathmatch starts in on area so you and your opponent don't have to \n        run all around the level just to find each other) and solitare is fun.\nVery BIG, with many secrets and switches!!!!!!!!!  Go for 100% in everything!\nThis IS different in some ways from the DOOM version.  Check out both and \nyou'll see.  Nothing major, just some more cryptic spots :)",
+                "rating": 3.6667,
+                "votes": 6,
+                "url": "https://www.doomworld.com/idgames/levels/doom2/0-9/2shadows",
+                "idgamesurl": "idgames://levels/doom2/0-9/2shadows.zip"
+            },
+            {
+                "id": 2317,
+                "title": "2besiege.wad",
+                "dir": "levels/doom2/0-9/",
+                "filename": "2besiege.zip",
+                "size": 84464,
+                "age": 803113200,
+                "date": "1995-06-14",
+                "author": "Shayne Hawthorne",
+                "email": "shayne.hawthorne@graphcon.com",
+                "description": "You are dropped at a Scottish castle. Now a demon stronghold on Earth. You must rid the castle of enemies, but beware of counterattacks.",
+                "rating": 3.3636,
+                "votes": 11,
+                "url": "https://www.doomworld.com/idgames/levels/doom2/0-9/2besiege",
+                "idgamesurl": "idgames://levels/doom2/0-9/2besiege.zip"
+            },
+            {
+                "id": 2375,
+                "title": "The 5th Door",
+                "dir": "levels/doom2/0-9/",
+                "filename": "5thdoor.zip",
+                "size": 13163,
+                "age": 803545200,
+                "date": "1995-06-19",
+                "author": "Mike Howell",
+                "email": "mhowell@dns.genesis.net",
+                "description": ".....",
+                "rating": 1.5,
+                "votes": 8,
+                "url": "https://www.doomworld.com/idgames/levels/doom2/0-9/5thdoor",
+                "idgamesurl": "idgames://levels/doom2/0-9/5thdoor.zip"
+            },
+            {
+                "id": 2404,
+                "title": "\"Watch Yer Back\" and \"Bloodfalls\"",
+                "dir": "levels/doom2/0-9/",
+                "filename": "2for1.zip",
+                "size": 50688,
+                "age": 803804400,
+                "date": "1995-06-22",
+                "author": "Rob MacKenna",
+                "email": "bludevil@gate.net",
+                "description": "This WAD is a combination of two levels I designed. Map01 is my very first WAD, but it doesn't suck TOO bad, and it is excellent for deathmatch. Map02 is good for solo play, and there are enough goodies scattered around to keep deathmatches going pretty well. (I hate it when you get killed and then you can't get any good stuff before the other guy hoses you again.)",
+                "rating": 2.25,
+                "votes": 8,
+                "url": "https://www.doomworld.com/idgames/levels/doom2/0-9/2for1",
+                "idgamesurl": "idgames://levels/doom2/0-9/2for1.zip"
+            }
+        ]
+    },
+    "meta": {
+        "version": 3
+    }
+}
