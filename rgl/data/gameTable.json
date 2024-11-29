@@ -200,6 +200,26 @@
     "runAgain": false
   },
   {
+    "gameTitle": "PSX Doom I CE",
+    "system": "PC",
+    "comments": "100% Secret Ultra Nightmare",
+    "youtubeLink": "https://youtube.com/live/O-0FBBFdH_w",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/PSX Doom I CE.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "PSX Doom II CE",
+    "system": "PC",
+    "comments": "100% Secret Ultra Nightmare",
+    "youtubeLink": "https://youtu.be/IXGEukUzUpQ",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/PSX Doom II CE.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Parasite Eve (Part 1)",
     "system": "PS1 (Duckstation",
     "comments": "Out of the Subway",
@@ -229,7 +249,7 @@
     "gameCompleted": true,
     "runAgain": false
   },
-    {
+  {
     "gameTitle": "Parasite Eve (Part 4)",
     "system": "PS1 (Duckstation)",
     "comments": "Chrysler Building Floor 1-50",
@@ -410,16 +430,6 @@
     "runAgain": false
   },
   {
-    "gameTitle": "Zelda 1",
-    "system": "NES",
-    "comments": "",
-    "youtubeLink": "",
-    "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
-    "runAgain": false
-  },
-  {
     "gameTitle": "Zelda 2: The Adventure of Link",
     "system": "NES",
     "comments": "1CC",
@@ -437,6 +447,26 @@
     "referencedBy": "https://www.twitch.tv/dollaphil",
     "coverImagePath": "",
     "gameCompleted": false,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Resident Evil Director\u0027s Cut",
+    "system": "PS1 (Duckstation)",
+    "comments": "Standard Chris No Save",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003d3avvCyFZ0PA",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/RE1 Chris no save standard.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "TMNT 2: The Arcade Game",
+    "system": "NES",
+    "comments": "1CC",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003divrxVJI6YYM",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/TMNT2.jpg",
+    "gameCompleted": true,
     "runAgain": false
   }
 ]
