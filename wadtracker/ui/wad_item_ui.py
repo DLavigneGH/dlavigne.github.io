@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # isort: skip_file
+# fmt:off
 ################################################################################
 ## Form generated from reading UI file 'wad_item_ui.ui'
 ##
@@ -8,49 +9,9 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
-    Qt,
-    QTime,
-    QUrl,
-)
-from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-    QTransform,
-)
-from PySide6.QtWidgets import (
-    QApplication,
-    QCheckBox,
-    QDialog,
-    QLabel,
-    QSizePolicy,
-    QTextBrowser,
-    QVBoxLayout,
-    QWidget,
-)
-
+from PySide6.QtCore import QCoreApplication, QDate, QDateTime, QLocale, QMetaObject, QObject, QPoint, QRect, QSize, Qt, QTime, QUrl
+from PySide6.QtGui import QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QGradient, QIcon, QImage, QKeySequence, QLinearGradient, QPainter, QPalette, QPixmap, QRadialGradient, QTransform
+from PySide6.QtWidgets import QApplication, QCheckBox, QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout, QWidget
 
 class Ui_wadInfo(object):
     def setupUi(self, wadInfo):

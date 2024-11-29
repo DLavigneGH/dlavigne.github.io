@@ -8,13 +8,7 @@ import sys
 
 import requests
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (
-    QApplication,
-    QMessageBox,
-    QScrollArea,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtWidgets import QApplication, QMessageBox, QScrollArea, QVBoxLayout, QWidget
 from ui.wad_item_ui import Ui_wadInfo
 from ui.wadui import Ui_wadList
 
@@ -39,7 +33,6 @@ HEADERS = {
 
 JSON_FILE_PATH = "merged_data.json"
 
-
 class WADCatalogueUI(QWidget, Ui_wadList):
     def __init__(self):
         super().__init__()
@@ -50,9 +43,7 @@ class WADCatalogueUI(QWidget, Ui_wadList):
         self.pushRandomize.clicked.connect(self.randomize_wad)
 
         self.scroll_area_levels = self.findChild(QScrollArea, "scrollAreaLevels")
-        self.scroll_area_levels_content = self.findChild(
-            QWidget, "scrollAreaLevels_Content"
-        )
+        self.scroll_area_levels_content = self.findChild(QWidget, "scrollAreaLevels_Content")
         self.scroll_area_levels.setWidget(self.scroll_area_levels_content)
 
         self.container_widget = None

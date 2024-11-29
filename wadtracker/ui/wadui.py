@@ -9,50 +9,10 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
-    Qt,
-    QTime,
-    QUrl,
-)
-from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-    QTransform,
-)
-from PySide6.QtWidgets import (
-    QApplication,
-    QDialog,
-    QPushButton,
-    QRadioButton,
-    QScrollArea,
-    QSizePolicy,
-    QTabWidget,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtCore import QCoreApplication, QDate, QDateTime, QLocale, QMetaObject, QObject, QPoint, QRect, QSize, Qt, QTime, QUrl
 
+from PySide6.QtGui import QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QGradient, QIcon, QImage, QKeySequence, QLinearGradient, QPainter, QPalette, QPixmap, QRadialGradient, QTransform
+from PySide6.QtWidgets import QApplication, QDialog, QPushButton, QRadioButton, QScrollArea, QSizePolicy, QTabWidget, QVBoxLayout, QWidget
 
 class Ui_wadList(object):
     def setupUi(self, wadList):
@@ -72,14 +32,10 @@ class Ui_wadList(object):
         self.scrollAreaLevels_Content = QWidget()
         self.scrollAreaLevels_Content.setObjectName("scrollAreaLevels_Content")
         self.scrollAreaLevels_Content.setGeometry(QRect(0, 0, 839, 859))
-        sizePolicy = QSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
-        )
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.scrollAreaLevels_Content.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy.setHeightForWidth(self.scrollAreaLevels_Content.sizePolicy().hasHeightForWidth())
         self.scrollAreaLevels_Content.setSizePolicy(sizePolicy)
         self.verticalLayoutWidget = QWidget(self.scrollAreaLevels_Content)
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
