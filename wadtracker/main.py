@@ -1,5 +1,7 @@
 # isort: skip_file
 # fmt:off
+import webbrowser
+import random
 import json
 import os
 import sys
@@ -21,14 +23,14 @@ BASE_URL = "https://test.doomworld.com/idgames/api/api.php?"
 # List of directories to query
 DIRS = [
     "levels/doom2/0-9/",
-    # "levels/doom2/a-c/",
-    # "levels/doom2/d-f/",
-    # "levels/doom2/g-i/",
-    # "levels/doom2/j-l/",
-    # "levels/doom2/p-r/",
-    # "levels/doom2/m-o/",
-    # "levels/doom2/s-u/",
-    # "levels/doom2/v-z/"
+    "levels/doom2/a-c/",
+    "levels/doom2/d-f/",
+    "levels/doom2/g-i/",
+    "levels/doom2/j-l/",
+    "levels/doom2/p-r/",
+    "levels/doom2/m-o/",
+    "levels/doom2/s-u/",
+    "levels/doom2/v-z/"
 ]
 
 HEADERS = {
@@ -42,7 +44,10 @@ class WADCatalogueUI(QWidget, Ui_wadList):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.wads_json = self.fetch_wad_data()  # Store loaded data here
+        self.wads_json = self.fetch_wad_data()
+
+        # Connect the 'pushRandomize' button to the randomize function
+        self.pushRandomize.clicked.connect(self.randomize_wad)
 
         self.scroll_area_levels = self.findChild(QScrollArea, "scrollAreaLevels")
         self.scroll_area_levels_content = self.findChild(
@@ -53,21 +58,23 @@ class WADCatalogueUI(QWidget, Ui_wadList):
         self.container_widget = None
         self.container_layout = None
 
-        self.wads_json = self.fetch_wad_data()
         wad_info = self.parse_wads_data(self.wads_json)
         self.populate_wad_list(wad_info)
 
     def fetch_wad_data(self):
-        """Fetch WAD data from Doomworld API if JSON doesn't already exist"""
-        # If the file exists, load the data from the file
+        """Fetch WAD data from Doomworld API, preserving existing metadata"""
         if os.path.exists(JSON_FILE_PATH):
             print(f"Using existing data from {JSON_FILE_PATH}")
             with open(JSON_FILE_PATH, "r", encoding="utf-8") as file:
-                return json.load(file)
-        else:
-            print(f"Fetching new data from the API...")
+                existing_data = json.load(file)
 
-            merged_data = []  # List to store all the results
+            # If we already have data, fetch new data and merge
+            merged_data = self.merge_wad_data(existing_data)
+            return merged_data
+        else:
+            # First-time fetch: get data from API and create initial JSON
+            print(f"First-time data fetch from the API...")
+            merged_data = []
 
             for e in DIRS:
                 params = {
@@ -80,27 +87,22 @@ class WADCatalogueUI(QWidget, Ui_wadList):
                     BASE_URL, headers=HEADERS, params=params, verify=False
                 )
 
-                # Check if the response is successful and contains data
                 if response.status_code == 200:
                     try:
-                        data = response.json()  # Get the JSON data from the response
-                        if (
-                            isinstance(data, dict) and "content" in data
-                        ):  # Check if 'content' exists
+                        data = response.json()
+                        if isinstance(data, dict) and "content" in data:
                             files_data = data["content"].get("file", [])
                             if isinstance(files_data, list):
-                                for wad in files_data:
-                                    # Add the "Completed" key with "No" to each WAD data
-                                    wad["Completed"] = "No"
-                                    # Pre-fetch textfile content and add it to the WAD
-                                    wad_id = wad.get("id", None)
+                                for new_wad in files_data:
+                                    # Default for new WADs
+                                    new_wad['Completed'] = 'No'
+
+                                    # Fetch textfile
+                                    wad_id = new_wad.get('id', None)
                                     if wad_id:
-                                        wad["textfile"] = self.fetch_textfile(
-                                            wad_id
-                                        )  # Add textfile directly
-                                merged_data.extend(
-                                    files_data
-                                )  # Merge files data from this directory
+                                        new_wad['textfile'] = self.fetch_textfile(wad_id)
+
+                                    merged_data.append(new_wad)
                         else:
                             print(f"No 'content' key in the response for {e}.")
                     except ValueError:
@@ -110,15 +112,76 @@ class WADCatalogueUI(QWidget, Ui_wadList):
                         f"Failed to fetch data for {e} (Status Code: {response.status_code})"
                     )
 
-            # Write the merged data to a JSON file
+            # Save the initial data
             try:
                 with open(JSON_FILE_PATH, "w", encoding="utf-8") as outfile:
                     json.dump(merged_data, outfile, indent=4, ensure_ascii=False)
-                print("Data successfully written to 'merged_data.json'")
+                print("Initial data successfully written to 'merged_data.json'")
             except Exception as e:
                 print(f"An error occurred while writing to file: {e}")
+
             return merged_data
 
+    def merge_wad_data(self, existing_data):
+        """Merge existing data with new API data"""
+        merged_data = []
+
+        for e in DIRS:
+            params = {
+                "action": "getfiles",
+                "name": e,
+                "out": "json",
+            }
+
+            response = requests.get(
+                BASE_URL, headers=HEADERS, params=params, verify=False
+            )
+
+            if response.status_code == 200:
+                try:
+                    data = response.json()
+                    if isinstance(data, dict) and "content" in data:
+                        files_data = data["content"].get("file", [])
+                        if isinstance(files_data, list):
+                            for new_wad in files_data:
+                                # Find if this WAD already exists in existing data
+                                existing_wad = next(
+                                    (wad for wad in existing_data if wad['id'] == new_wad.get('id')),
+                                    None
+                                )
+
+                                if existing_wad:
+                                    # Preserve existing metadata
+                                    new_wad['Completed'] = existing_wad.get('Completed', 'No')
+                                    new_wad['textfile'] = existing_wad.get('textfile', '')
+                                else:
+                                    # Default for new WADs
+                                    new_wad['Completed'] = 'No'
+
+                                # Fetch textfile if not already present
+                                wad_id = new_wad.get('id', None)
+                                if wad_id and not new_wad.get('textfile'):
+                                    new_wad['textfile'] = self.fetch_textfile(wad_id)
+
+                                merged_data.append(new_wad)
+                    else:
+                        print(f"No 'content' key in the response for {e}.")
+                except ValueError:
+                    print(f"Failed to parse JSON for {e}: {response.text}")
+            else:
+                print(
+                    f"Failed to fetch data for {e} (Status Code: {response.status_code})"
+                )
+
+        # Save the merged data, preserving existing metadata
+        try:
+            with open(JSON_FILE_PATH, "w", encoding="utf-8") as outfile:
+                json.dump(merged_data, outfile, indent=4, ensure_ascii=False)
+            print("Data successfully written to 'merged_data.json'")
+        except Exception as e:
+            print(f"An error occurred while writing to file: {e}")
+
+        return merged_data
     def parse_wads_data(self, data):
         """Extract relevant WAD information and pre-fetch textfiles"""
         return [
@@ -134,6 +197,7 @@ class WADCatalogueUI(QWidget, Ui_wadList):
                 "votes": wad.get("votes", "Unknown"),
                 "url": wad.get("url", "Unknown"),
                 "textfile": wad.get("textfile", "No textfile available"),
+                "Completed": wad.get("Completed", "No")
             }
             for wad in data
         ]
@@ -166,6 +230,7 @@ class WADCatalogueUI(QWidget, Ui_wadList):
 
     def create_wad_widget(self, wad, index):
         """Create a widget to display WAD information using Ui_Form."""
+        print(f"Creating widget for WAD: {wad.get('title', 'Unknown')}, Completed: {wad.get('Completed', 'No')}")
         wad_widget = QWidget()
         ui_form = Ui_wadInfo()  # Instantiate the custom UI for each WAD item
         ui_form.setupUi(wad_widget)  # Set up the UI for this widget
@@ -192,11 +257,10 @@ class WADCatalogueUI(QWidget, Ui_wadList):
             textfile
         )  # Assuming you have a QTextBrowser for this
 
-        # Set checkbox state
-        completed_state = (
-            Qt.Checked if wad.get("Completed", "No") == "Yes" else Qt.Unchecked
-        )
-        ui_form.visitedCheckBox.setChecked(completed_state == Qt.Checked)
+        print(f"Completed status for {wad.get('title', 'Unknown')}: {wad.get('Completed', 'No')}")
+        # Directly set the checkbox state based on the 'Completed' value
+        is_completed = wad.get('Completed', 'No') == 'Yes'
+        ui_form.visitedCheckBox.setChecked(is_completed)
 
         # Connect checkbox signal to update method, passing the index
         ui_form.visitedCheckBox.stateChanged.connect(
@@ -243,12 +307,11 @@ class WADCatalogueUI(QWidget, Ui_wadList):
         msg.exec_()
 
     def update_wad_completed_state(self, index, state):
-        if state == Qt.Checked.value:
-            self.wads_json[index]["Completed"] = "Yes"
-            print("yes")
-        else:
-            self.wads_json[index]["Completed"] = "No"
-            print("no")
+        # Convert Qt.CheckState to 'Yes' or 'No'
+        completed_status = 'Yes' if state == Qt.Checked.value else 'No'
+
+        # Update the JSON data
+        self.wads_json[index]["Completed"] = completed_status
 
         # Save updated data back to the JSON file
         self.save_wad_data()
@@ -261,6 +324,27 @@ class WADCatalogueUI(QWidget, Ui_wadList):
         except Exception as e:
             print(f"An error occurred while writing to file: {e}")
 
+    def randomize_wad(self):
+        """Select a random WAD where 'Completed' = 'No' and open its URL."""
+        # Filter WADs that are not completed
+        incomplete_wads = [wad for wad in self.wads_json if wad.get("Completed") == "No"]
+
+        if not incomplete_wads:
+            self.show_error("No incomplete WADs found.")
+            return
+
+        # Select a random WAD from the incomplete ones
+        random_wad = random.choice(incomplete_wads)
+
+        # Get the URL of the selected WAD
+        wad_url = random_wad.get("url", None)
+
+        if wad_url:
+            # Open the URL in the default browser
+            webbrowser.open(wad_url)
+            print(f"Opening URL: {wad_url}")
+        else:
+            self.show_error("No URL available for the selected WAD.")
 
 # Main application
 if __name__ == "__main__":

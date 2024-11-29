@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # isort: skip_file
+# fmt:off
 ################################################################################
 ## Form generated from reading UI file 'wadui.ui'
 ##
@@ -43,6 +44,7 @@ from PySide6.QtGui import (
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
+    QPushButton,
     QRadioButton,
     QScrollArea,
     QSizePolicy,
@@ -56,7 +58,7 @@ class Ui_wadList(object):
     def setupUi(self, wadList):
         if not wadList.objectName():
             wadList.setObjectName("wadList")
-        wadList.resize(854, 963)
+        wadList.resize(1109, 963)
         self.tabWidget = QTabWidget(wadList)
         self.tabWidget.setObjectName("tabWidget")
         self.tabWidget.setGeometry(QRect(0, 40, 851, 901))
@@ -105,6 +107,9 @@ class Ui_wadList(object):
         self.radioDoom2.setObjectName("radioDoom2")
         self.radioDoom2.setGeometry(QRect(90, 10, 90, 20))
         self.radioDoom2.setChecked(True)
+        self.pushRandomize = QPushButton(wadList)
+        self.pushRandomize.setObjectName("pushRandomize")
+        self.pushRandomize.setGeometry(QRect(190, 20, 93, 28))
 
         self.retranslateUi(wadList)
 
@@ -126,5 +131,8 @@ class Ui_wadList(object):
         )
         self.radioDoom.setText(QCoreApplication.translate("wadList", "Doom I", None))
         self.radioDoom2.setText(QCoreApplication.translate("wadList", "Doom II", None))
+        self.pushRandomize.setText(
+            QCoreApplication.translate("wadList", "Randomize!", None)
+        )
 
     # retranslateUi
