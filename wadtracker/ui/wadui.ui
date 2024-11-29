@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>wadList</class>
+ <widget class="QDialog" name="wadList">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1554</width>
-    <height>1106</height>
+    <width>854</width>
+    <height>963</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>40</y>
-     <width>1391</width>
-     <height>911</height>
+     <width>851</width>
+     <height>901</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -34,7 +34,7 @@
       <rect>
        <x>0</x>
        <y>10</y>
-       <width>1371</width>
+       <width>841</width>
        <height>861</height>
       </rect>
      </property>
@@ -49,7 +49,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1369</width>
+        <width>839</width>
         <height>859</height>
        </rect>
       </property>
@@ -65,7 +65,7 @@
          <x>10</x>
          <y>10</y>
          <width>821</width>
-         <height>591</height>
+         <height>841</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -129,6 +129,19 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushRandomize">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>20</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Randomize!</string>
    </property>
   </widget>
  </widget>

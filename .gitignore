@@ -1,2 +1,5 @@
 rgl/*
 __pycache__
+
+# Ignore the large JSON file
+wadtracker/merged_data.json

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# fmt: off
+# isort: skip_file
 ################################################################################
 ## Form generated from reading UI file 'wad_item_ui.ui'
 ##
@@ -8,100 +8,140 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-                            QMetaObject, QObject, QPoint, QRect, QSize, Qt,
-                            QTime, QUrl)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-                           QFontDatabase, QGradient, QIcon, QImage,
-                           QKeySequence, QLinearGradient, QPainter, QPalette,
-                           QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QSizePolicy, QVBoxLayout,
-                               QWidget)
+from PySide6.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QLocale,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide6.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QGradient,
+    QIcon,
+    QImage,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+    QTransform,
+)
+from PySide6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QDialog,
+    QLabel,
+    QSizePolicy,
+    QVBoxLayout,
+    QWidget,
+)
 
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName("Form")
-        Form.resize(585, 733)
-        self.verticalLayoutWidget = QWidget(Form)
+class Ui_wadInfo(object):
+    def setupUi(self, wadInfo):
+        if not wadInfo.objectName():
+            wadInfo.setObjectName("wadInfo")
+        wadInfo.resize(361, 621)
+        self.verticalLayoutWidget = QWidget(wadInfo)
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayoutWidget.setGeometry(QRect(0, 0, 361, 581))
-        self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.wadItemLayout = QVBoxLayout(self.verticalLayoutWidget)
+        self.wadItemLayout.setObjectName("wadItemLayout")
+        self.wadItemLayout.setContentsMargins(0, 0, 0, 0)
         self.idLabel = QLabel(self.verticalLayoutWidget)
         self.idLabel.setObjectName("idLabel")
 
-        self.verticalLayout.addWidget(self.idLabel)
+        self.wadItemLayout.addWidget(self.idLabel)
 
         self.titleLabel = QLabel(self.verticalLayoutWidget)
         self.titleLabel.setObjectName("titleLabel")
 
-        self.verticalLayout.addWidget(self.titleLabel)
+        self.wadItemLayout.addWidget(self.titleLabel)
 
         self.filenameLabel = QLabel(self.verticalLayoutWidget)
         self.filenameLabel.setObjectName("filenameLabel")
 
-        self.verticalLayout.addWidget(self.filenameLabel)
+        self.wadItemLayout.addWidget(self.filenameLabel)
 
         self.authorLabel = QLabel(self.verticalLayoutWidget)
         self.authorLabel.setObjectName("authorLabel")
 
-        self.verticalLayout.addWidget(self.authorLabel)
+        self.wadItemLayout.addWidget(self.authorLabel)
 
         self.dateLabel = QLabel(self.verticalLayoutWidget)
         self.dateLabel.setObjectName("dateLabel")
 
-        self.verticalLayout.addWidget(self.dateLabel)
+        self.wadItemLayout.addWidget(self.dateLabel)
 
         self.sizeLabel = QLabel(self.verticalLayoutWidget)
         self.sizeLabel.setObjectName("sizeLabel")
 
-        self.verticalLayout.addWidget(self.sizeLabel)
+        self.wadItemLayout.addWidget(self.sizeLabel)
 
         self.ratingLabel = QLabel(self.verticalLayoutWidget)
         self.ratingLabel.setObjectName("ratingLabel")
 
-        self.verticalLayout.addWidget(self.ratingLabel)
+        self.wadItemLayout.addWidget(self.ratingLabel)
 
         self.votesLabel = QLabel(self.verticalLayoutWidget)
         self.votesLabel.setObjectName("votesLabel")
 
-        self.verticalLayout.addWidget(self.votesLabel)
+        self.wadItemLayout.addWidget(self.votesLabel)
 
         self.urlLabel = QLabel(self.verticalLayoutWidget)
         self.urlLabel.setObjectName("urlLabel")
 
-        self.verticalLayout.addWidget(self.urlLabel)
+        self.wadItemLayout.addWidget(self.urlLabel)
 
         self.descriptionLabel = QLabel(self.verticalLayoutWidget)
         self.descriptionLabel.setObjectName("descriptionLabel")
         self.descriptionLabel.setWordWrap(True)
 
-        self.verticalLayout.addWidget(self.descriptionLabel)
+        self.wadItemLayout.addWidget(self.descriptionLabel)
 
-        self.retranslateUi(Form)
+        self.visitedCheckBox = QCheckBox(self.verticalLayoutWidget)
+        self.visitedCheckBox.setObjectName("visitedCheckBox")
 
-        QMetaObject.connectSlotsByName(Form)
+        self.wadItemLayout.addWidget(self.visitedCheckBox)
+
+        self.retranslateUi(wadInfo)
+
+        QMetaObject.connectSlotsByName(wadInfo)
 
     # setupUi
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", "Form", None))
-        self.idLabel.setText(QCoreApplication.translate("Form", "Id:", None))
-        self.titleLabel.setText(QCoreApplication.translate("Form", "Title:", None))
+    def retranslateUi(self, wadInfo):
+        wadInfo.setWindowTitle(QCoreApplication.translate("wadInfo", "Dialog", None))
+        self.idLabel.setText(QCoreApplication.translate("wadInfo", "Id:", None))
+        self.titleLabel.setText(QCoreApplication.translate("wadInfo", "Title:", None))
         self.filenameLabel.setText(
-            QCoreApplication.translate("Form", "Filename:", None)
+            QCoreApplication.translate("wadInfo", "Filename:", None)
         )
-        self.authorLabel.setText(QCoreApplication.translate("Form", "Author:", None))
-        self.dateLabel.setText(QCoreApplication.translate("Form", "Date:", None))
-        self.sizeLabel.setText(QCoreApplication.translate("Form", "Size:", None))
-        self.ratingLabel.setText(QCoreApplication.translate("Form", "Rating:", None))
-        self.votesLabel.setText(QCoreApplication.translate("Form", "Votes:", None))
-        self.urlLabel.setText(QCoreApplication.translate("Form", "URL:", None))
+        self.authorLabel.setText(QCoreApplication.translate("wadInfo", "Author:", None))
+        self.dateLabel.setText(QCoreApplication.translate("wadInfo", "Date:", None))
+        self.sizeLabel.setText(QCoreApplication.translate("wadInfo", "Size:", None))
+        self.ratingLabel.setText(QCoreApplication.translate("wadInfo", "Rating:", None))
+        self.votesLabel.setText(QCoreApplication.translate("wadInfo", "Votes:", None))
+        self.urlLabel.setText(QCoreApplication.translate("wadInfo", "URL:", None))
         self.descriptionLabel.setText(
-            QCoreApplication.translate("Form", "Description:", None)
+            QCoreApplication.translate("wadInfo", "Description:", None)
+        )
+        self.visitedCheckBox.setText(
+            QCoreApplication.translate("wadInfo", "Visited", None)
         )
 
     # retranslateUi
