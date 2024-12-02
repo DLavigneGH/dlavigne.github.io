@@ -7,6 +7,19 @@ import time
 import undetected_chromedriver as uc
 
 class WadWebScraper:
+    """
+    A class responsible for web scraping Doom WAD files from the Doomworld website.
+
+    This class creates a headless Chrome browser instance using the undetected-chromedriver 
+    to bypass bot detection and scrapes WAD data from Doomworld's idgames section.
+
+    Attributes:
+        driver (uc.Chrome): A headless Chrome WebDriver instance configured with custom options.
+
+    Methods:
+        __init__(): Initializes the Chrome driver, opens the Doomworld URL, and handles verification.
+        handle_verification(driver): Processes any necessary verification steps during webpage access.
+    """
     def __init__(self):
 
         # Create undetected Chrome driver
@@ -22,6 +35,15 @@ class WadWebScraper:
         self.handle_verification(self.driver)
 
     def handle_verification(self, driver):
+        """This is to bypass the anti-bot Cloudfare detection
+
+        Args:
+            driver (uc.Chrome): The Chrome WebDriver instance used for web scraping.
+
+        Raises:
+            TimeoutException: If the expected verification element does not appear within the timeout.
+            NoSuchElementException: If the necessary verification button or element is not found.
+        """
         try:
             # Wait for Logo Assembly image
             WebDriverWait(driver, 4).until(

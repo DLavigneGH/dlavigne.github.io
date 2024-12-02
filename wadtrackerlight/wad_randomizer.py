@@ -9,6 +9,21 @@ from ui.wad_item_ui import Ui_wadInfo
 from web_scraper import WadWebScraper
 
 class DoomWadRandomizer(QMainWindow):
+    """
+    This class initializes the user interface, handles web scraping for WAD data, 
+    manages user interactions, and tracks visited WADs using a JSON file.
+
+    Attributes:
+        web_scraper (WadWebScraper): An instance of the web scraper for fetching WAD data.
+        main_ui (Ui_wadList): The main UI component for displaying the list of WADs.
+        current_wad_url (str): The URL of the currently selected WAD.
+        json_file_path (str): The file path to the JSON file used to track visited WADs.
+    
+    Methods:
+        __init__(): Initializes the main window, sets up the UI, and connects buttons.
+        setup_wad_item_ui(): Configures the dialog for displaying WAD item details.
+        connect_buttons(): Establishes signal-slot connections for button interactions.
+    """
     def __init__(self):
         super().__init__()
         
