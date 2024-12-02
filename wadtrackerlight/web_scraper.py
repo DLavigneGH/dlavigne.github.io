@@ -1,21 +1,42 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+
+import time
+import undetected_chromedriver as uc
 
 class WadWebScraper:
     def __init__(self):
-        # Setup headless mode for Selenium WebDriver
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-gpu")
 
-        # Setup Selenium WebDriver
-        self.driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()), 
-            options=chrome_options
-        )
+        # Create undetected Chrome driver
+        chrome_options = uc.ChromeOptions()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument("--disable-quic")
+        self.driver = uc.Chrome(options=chrome_options)
+        # Open URL
+        self.driver.get("https://www.doomworld.com/idgames/")
+        time.sleep(3)
+        # Handle verification
+        self.handle_verification(self.driver)
+
+    def handle_verification(self, driver):
+        try:
+            # Wait for Logo Assembly image
+            WebDriverWait(driver, 4).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'img[alt="Logo Assembly"]'))
+            )
+            time.sleep(3)
+        except (TimeoutException, NoSuchElementException):
+            try:
+                # Check for Verify button
+                verify_button = driver.find_element(By.CSS_SELECTOR, 'input[value*="Verify"]')
+                verify_button.click()
+            except NoSuchElementException:
+                # Fallback to manual captcha handling (you might need to customize this)
+                pass
+
 
     def get_random_wad_filename(self):
         """
@@ -25,9 +46,6 @@ class WadWebScraper:
             str: Filename of a random WAD
         """
         try:
-            # Open random WAD page
-            self.driver.get('https://www.doomworld.com/idgames/')
-            
             # Click random button
             random_button = self.driver.find_element(By.XPATH, "//a[contains(text(), 'Random')]")
             random_button.click()

@@ -1,12 +1,12 @@
-import sys
-import webbrowser
 import json
 import os
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
+import webbrowser
+
+from api_service import WadApiService
+from PySide6.QtWidgets import QMainWindow, QWidget, QMessageBox
 from ui.wadui import Ui_wadList
 from ui.wad_item_ui import Ui_wadInfo
 from web_scraper import WadWebScraper
-from api_service import WadApiService
 
 class DoomWadRandomizer(QMainWindow):
     def __init__(self):
@@ -81,9 +81,10 @@ class DoomWadRandomizer(QMainWindow):
                 with open(self.json_file_path, 'r') as file:
                     visited_wads = json.load(file)
                 
-                # Check if the filename exists in the visited WADs
+                # Check if the visited is yes in the visited WADs
                 for wad in visited_wads:
-                    if wad.get('filename', '').strip() == filename.strip():
+                    if wad.get('filename', '') == filename.split('/')[-1]:
+                        print('True')
                         return True
                 
                 return False

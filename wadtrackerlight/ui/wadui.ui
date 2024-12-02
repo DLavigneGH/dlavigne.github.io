@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>768</width>
-    <height>932</height>
+    <width>761</width>
+    <height>1151</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>WAD Randomizer</string>
   </property>
   <widget class="QPushButton" name="pushRandomize">
    <property name="geometry">
@@ -31,9 +31,12 @@
     <rect>
      <x>10</x>
      <y>60</y>
-     <width>751</width>
-     <height>861</height>
+     <width>761</width>
+     <height>1091</height>
     </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAsNeeded</enum>
@@ -46,8 +49,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>749</width>
-      <height>859</height>
+      <width>761</width>
+      <height>1091</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -59,10 +62,10 @@
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>10</y>
-       <width>731</width>
-       <height>841</height>
+       <width>741</width>
+       <height>1071</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout"/>
