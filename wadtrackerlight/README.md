@@ -19,7 +19,7 @@ Here is a python App to randomize Classic DooM WAD downloads from www.doomworld.
 This opens a Selenium Webdriver session to `www.doomworld.com/idgames` in the background and presses the `Random File` button. The Webdriver will look for the `filename path` of the WAD visible on this page, and will do an API call to get information of that file (id, title, filename, author, etc.) (See idGames Archive Public API [documentation](https://www.doomworld.com/idgames/api/) for more info)
 
 An example of api call made from the App would be: <br>
-```https://www.doomworld.com/idgames/api/api.php?action=get&file=levels/doom2/Ports/megawads/cchest3.zip&out=json```
+```https://www.doomworld.com/idgames/api/api.php?action=get&file=levels/doom2/Ports/megawads/cchest3.zip&out=json```<br>
 Click [here](https://www.doomworld.com/idgames/api/api.php?action=get&file=levels/doom2/Ports/megawads/cchest3.zip&out=json) to see the response.
 
 You can save that response to a JSON file with a button from the App, if you wish to keep track of what you play or do other data manipulation (create tables, etc.)
@@ -35,9 +35,9 @@ Download the wadrandomizer.exe file and launch it.
 ## Usage
 
 Upon starting the App (there is a <10 seconds loading) you will be greeted with an empty UI.
-The only available option is to click `Randomize`. This will trigger a call to the `www.doomworld.com/idgames` API.
+The only available option is to click `Randomize`.
 
-If successful, the UI will start to populate with the WAD that it randomly found for you.
+If Randomize was successful, the UI will start to populate with the WAD information that that was found for you.
 It doesn't allow filtering, meaning you will get any WAD from the database (heretic, deathmatch, doom, doom2, megawads, etc.)
 
 A `Download WAD` button will be available to download the WAD.
