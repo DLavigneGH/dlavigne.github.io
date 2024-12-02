@@ -34,6 +34,8 @@ Download the wadrandomizer.exe file and launch it.
 
 ## Usage
 
+![Randomizer](.doc/randomizer.png)
+
 Upon starting the App (there is a <10 seconds loading) you will be greeted with an empty UI.
 The only available option is to click `Randomize`.
 
@@ -47,7 +49,7 @@ This will create a file next to the EXE which can be used to track your WADs you
 
 ## Issues
 
-Sometimes the Randomize button doesn't work, just relaunch the App.
+Sometimes launching doesn't work; you will get an error popup about certificate. Just relaunch the App.
 
 ## Changelog
 
