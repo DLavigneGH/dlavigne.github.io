@@ -1,6 +1,5 @@
 rgl/*
 wadtrackerlight/data.json
-wadtrackerlight/ui/*.ui
 wadtrackerlight/build
 wadtrackerlight/dist
 wadtrackerlight/*.spec
