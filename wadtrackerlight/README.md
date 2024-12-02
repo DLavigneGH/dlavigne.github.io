@@ -34,7 +34,7 @@ Download the wadrandomizer.exe file and launch it.
 
 ## Usage
 
-![Randomizer](.doc/randomizer.png)
+![Randomizer](./doc/randomizer.png)
 
 Upon starting the App (there is a <10 seconds loading) you will be greeted with an empty UI.
 The only available option is to click `Randomize`.
