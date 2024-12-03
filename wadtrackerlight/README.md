@@ -26,11 +26,12 @@ You can save that response to a JSON file with a button from the App, if you wis
 
 ## Requirements
 
-This was made with python "3.13" and EXE comes with all dependencies.
+This was made with python "3.13" but the EXE should come with all dependencies.
+You will need Chrome for the Selenium part.
 
 ## Installation
 
-Download the wadrandomizer.exe file and launch it.
+Download the WADomizer.exe file and launch it.
 
 ## Usage
 

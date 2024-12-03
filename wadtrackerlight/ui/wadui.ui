@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>761</width>
-    <height>1151</height>
+    <height>1018</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>WAD Randomizer</string>
+   <string>WADdomizer</string>
   </property>
   <widget class="QPushButton" name="pushRandomize">
    <property name="geometry">
@@ -32,7 +32,7 @@
      <x>10</x>
      <y>60</y>
      <width>761</width>
-     <height>1091</height>
+     <height>961</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -50,7 +50,7 @@
       <x>0</x>
       <y>0</y>
       <width>761</width>
-      <height>1091</height>
+      <height>961</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -65,7 +65,7 @@
        <x>0</x>
        <y>10</y>
        <width>741</width>
-       <height>1071</height>
+       <height>941</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout"/>

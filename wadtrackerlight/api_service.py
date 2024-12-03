@@ -1,6 +1,7 @@
 import requests
 
 BASE_URL = 'https://www.doomworld.com/idgames/api/api.php?'
+#BASE_URL = 'https://test.doomworld.com/idgames/api/api.php?'
 
 class WadApiService:
     @staticmethod

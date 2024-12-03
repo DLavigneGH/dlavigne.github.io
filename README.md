@@ -7,3 +7,6 @@ Note that each projects have their own readme.
 
 ### [Game Log](gamelog/README.md)
 The game log records a list of games and their information, and can display your collection in a HTML file.
+
+### [Classic DooM WAD Randomizer and Tracker](wadtrackerlight/README.md)
+The game log records a list of games and their information, and can display your collection in a HTML file.

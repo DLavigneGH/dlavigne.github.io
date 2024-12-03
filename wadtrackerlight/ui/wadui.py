@@ -22,19 +22,19 @@ class Ui_wadList(object):
     def setupUi(self, wadList):
         if not wadList.objectName():
             wadList.setObjectName(u"wadList")
-        wadList.resize(761, 1151)
+        wadList.resize(761, 1018)
         self.pushRandomize = QPushButton(wadList)
         self.pushRandomize.setObjectName(u"pushRandomize")
         self.pushRandomize.setGeometry(QRect(10, 20, 100, 28))
         self.scrollAreaLevels = QScrollArea(wadList)
         self.scrollAreaLevels.setObjectName(u"scrollAreaLevels")
-        self.scrollAreaLevels.setGeometry(QRect(10, 60, 761, 1091))
+        self.scrollAreaLevels.setGeometry(QRect(10, 60, 761, 961))
         self.scrollAreaLevels.setFrameShape(QFrame.NoFrame)
         self.scrollAreaLevels.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.scrollAreaLevels.setWidgetResizable(True)
         self.scrollAreaLevels_Content = QWidget()
         self.scrollAreaLevels_Content.setObjectName(u"scrollAreaLevels_Content")
-        self.scrollAreaLevels_Content.setGeometry(QRect(0, 0, 761, 1091))
+        self.scrollAreaLevels_Content.setGeometry(QRect(0, 0, 761, 961))
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -42,7 +42,7 @@ class Ui_wadList(object):
         self.scrollAreaLevels_Content.setSizePolicy(sizePolicy)
         self.verticalLayoutWidget = QWidget(self.scrollAreaLevels_Content)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(0, 10, 741, 1071))
+        self.verticalLayoutWidget.setGeometry(QRect(0, 10, 741, 941))
         self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -63,7 +63,7 @@ class Ui_wadList(object):
     # setupUi
 
     def retranslateUi(self, wadList):
-        wadList.setWindowTitle(QCoreApplication.translate("wadList", u"WAD Randomizer", None))
+        wadList.setWindowTitle(QCoreApplication.translate("wadList", u"WADdomizer", None))
         self.pushRandomize.setText(QCoreApplication.translate("wadList", u"Randomize!", None))
         self.pushSaveJson.setText(QCoreApplication.translate("wadList", u"Record to JSON", None))
         self.pushDownload.setText(QCoreApplication.translate("wadList", u"Download WAD", None))
