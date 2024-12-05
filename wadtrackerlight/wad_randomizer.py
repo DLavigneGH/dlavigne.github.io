@@ -1,6 +1,7 @@
 import json
 import os
-import webbrowser
+import sys
+import requests
 
 from api_service import WadApiService
 from PySide6.QtWidgets import QMainWindow, QWidget, QMessageBox
@@ -175,11 +176,33 @@ class DoomWadRandomizer(QMainWindow):
             self.labels[label_name].setText(str(files_data.get(data_key, 'N/A')))
 
     def open_wad_url(self, filename):
-        """Open WAD download URL in browser"""
+        """Download WAD file and store it next to the Python script executable"""
         if self.current_wad_url:
-            webbrowser.open(f'https://www.quaddicted.com/files/idgames/{filename}')
+            url = f'https://www.quaddicted.com/files/idgames/{filename}'
 
-    
+        # Determine the path of the running executable or script
+        if getattr(sys, 'frozen', False):
+            script_dir = os.path.dirname(sys.executable)
+        else:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        save_path = os.path.join(script_dir, os.path.basename(filename))
+        print(save_path)
+        
+        # Try Download
+        try:
+            response = requests.get(url, stream=True)
+            response.raise_for_status()
+            with open(save_path, 'wb') as file:
+                for chunk in response.iter_content(chunk_size=8192):
+                    file.write(chunk)
+
+            print(f"File downloaded and saved as {save_path}")
+
+        except requests.exceptions.RequestException as e:
+            # Handle any errors during the download
+            print(f"Error downloading file: {e}")
+
     def save_data(self):
         """Save WAD data to JSON file"""
         data = {
@@ -222,6 +245,23 @@ class DoomWadRandomizer(QMainWindow):
         except Exception as e:
             # Show an error message if something goes wrong
             QMessageBox.critical(self, "Error", f"Failed to save data: {e}")
+
+        self.make_obs_txt(data)
+
+    def make_obs_txt(self, data):
+        """Save some of the WAD data to txt file"""
+        txt_file_path_filename = 'for_obs_filename.txt'
+        txt_file_path_date = 'for_obs_date.txt'
+        filename = os.path.splitext(data.get("filename", "Unknown"))[0]
+        author = data.get("author", "Unknown")
+        date = data.get("date", "Unknown")
+
+        # Write the data for OBS txt file
+        with open(txt_file_path_filename, 'w') as file:
+            file.write(f"{filename}\n")
+
+        with open(txt_file_path_date, 'w') as file:   
+            file.write(f"{date}\n")
 
     def closeEvent(self, event):
         """Close WebDriver when application closes"""
