@@ -1,6 +1,7 @@
 __pycache__
 rgl/*
 !rgl/data/gameTable.json
+!rgl/data/cover/*
 data.json
 build
 dist
