@@ -300,6 +300,26 @@
     "runAgain": false
   },
   {
+    "gameTitle": "Resident Evil Director\u0027s Cut",
+    "system": "PS1 (Duckstation)",
+    "comments": "Standard Chris No Save",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003d3avvCyFZ0PA",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/RE1 Chris no save standard.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Resident Evil Director\u0027s Cut",
+    "system": "PC (GoG)",
+    "comments": "Standard Jill No Save",
+    "youtubeLink": "https://youtube.com/live/EvuUuq9z7qo",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/RE1 Jill no save standard.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Shatterhands",
     "system": "NES",
     "comments": "First Play 1CC",
@@ -361,7 +381,7 @@
   },
   {
     "gameTitle": "Super Mario 3",
-    "system": "",
+    "system": "NES",
     "comments": "All Levels",
     "youtubeLink": "",
     "referencedBy": "",
@@ -386,6 +406,16 @@
     "youtubeLink": "https://www.youtube.com/watch?v\u003drnfStpUqK4Y",
     "referencedBy": "",
     "coverImagePath": "data/cover/Super Metroid.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "TMNT 2: The Arcade Game",
+    "system": "NES",
+    "comments": "1CC",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003divrxVJI6YYM",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/TMNT2.jpg",
     "gameCompleted": true,
     "runAgain": false
   },
@@ -441,32 +471,12 @@
   },
   {
     "gameTitle": "Zombies Ate My Neighbor",
-    "system": "",
-    "comments": "This one will demand a lot of effort",
+    "system": "SNES",
+    "comments": "",
     "youtubeLink": "",
     "referencedBy": "https://www.twitch.tv/dollaphil",
     "coverImagePath": "",
     "gameCompleted": false,
-    "runAgain": false
-  },
-  {
-    "gameTitle": "Resident Evil Director\u0027s Cut",
-    "system": "PS1 (Duckstation)",
-    "comments": "Standard Chris No Save",
-    "youtubeLink": "https://www.youtube.com/watch?v\u003d3avvCyFZ0PA",
-    "referencedBy": "",
-    "coverImagePath": "data/cover/RE1 Chris no save standard.jpg",
-    "gameCompleted": true,
-    "runAgain": false
-  },
-  {
-    "gameTitle": "TMNT 2: The Arcade Game",
-    "system": "NES",
-    "comments": "1CC",
-    "youtubeLink": "https://www.youtube.com/watch?v\u003divrxVJI6YYM",
-    "referencedBy": "",
-    "coverImagePath": "data/cover/TMNT2.jpg",
-    "gameCompleted": true,
     "runAgain": false
   }
 ]
