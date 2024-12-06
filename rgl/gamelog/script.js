@@ -7,7 +7,7 @@ let sortTitleAscending = true;      // Track sorting order for titles
 let sortPlatformAscending = true;   // Track sorting order for platforms
 
 // Fetch the JSON file and initialize the games
-fetch('http://localhost:8080/data/gameTable.json')
+fetch('https://dlavignegh.github.io/dlavigne.github.io/rgl/gamelog/data/gameTable.json')
     .then(response => response.json())
     .then(data => {
         games = data;  // Store the full games array
@@ -37,7 +37,7 @@ function displayGames(gameList) {
 
         // If the game has a cover image, add an image tag for the popup functionality
         if (game.coverImagePath) {
-            const coverImageUrl = 'http://localhost:8080/' + game.coverImagePath.replace(/^.*[\\\/]/, 'data/cover/');  // Convert path to URL
+            const coverImageUrl = 'https://dlavignegh.github.io/dlavigne.github.io/rgl/gamelog/' + game.coverImagePath.replace(/^.*[\\\/]/, 'data/cover/');  // Convert path to URL
             const coverImagePopup = document.createElement('span');
             coverImagePopup.classList.add('cover-popup');
             coverImagePopup.setAttribute('data-image-url', coverImageUrl);
