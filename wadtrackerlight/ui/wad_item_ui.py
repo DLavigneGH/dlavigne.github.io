@@ -22,10 +22,10 @@ class Ui_wadInfo(object):
     def setupUi(self, wadInfo):
         if not wadInfo.objectName():
             wadInfo.setObjectName(u"wadInfo")
-        wadInfo.resize(731, 1069)
+        wadInfo.resize(1393, 586)
         self.verticalLayoutWidget = QWidget(wadInfo)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(0, 0, 731, 1061))
+        self.verticalLayoutWidget.setGeometry(QRect(0, 0, 731, 582))
         self.wadItemLayout = QVBoxLayout(self.verticalLayoutWidget)
         self.wadItemLayout.setObjectName(u"wadItemLayout")
         self.wadItemLayout.setContentsMargins(0, 0, 0, 0)
@@ -35,6 +35,7 @@ class Ui_wadInfo(object):
         font.setPointSize(10)
         font.setBold(True)
         self.idLabel_2.setFont(font)
+        self.idLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.idLabel_2)
 
@@ -49,6 +50,7 @@ class Ui_wadInfo(object):
         self.titleLabel_2 = QLabel(self.verticalLayoutWidget)
         self.titleLabel_2.setObjectName(u"titleLabel_2")
         self.titleLabel_2.setFont(font)
+        self.titleLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.titleLabel_2)
 
@@ -61,6 +63,7 @@ class Ui_wadInfo(object):
         self.filenameLabel_2 = QLabel(self.verticalLayoutWidget)
         self.filenameLabel_2.setObjectName(u"filenameLabel_2")
         self.filenameLabel_2.setFont(font)
+        self.filenameLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.filenameLabel_2)
 
@@ -73,6 +76,7 @@ class Ui_wadInfo(object):
         self.authorLabel_2 = QLabel(self.verticalLayoutWidget)
         self.authorLabel_2.setObjectName(u"authorLabel_2")
         self.authorLabel_2.setFont(font)
+        self.authorLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.authorLabel_2)
 
@@ -85,6 +89,7 @@ class Ui_wadInfo(object):
         self.dateLabel_2 = QLabel(self.verticalLayoutWidget)
         self.dateLabel_2.setObjectName(u"dateLabel_2")
         self.dateLabel_2.setFont(font)
+        self.dateLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.dateLabel_2)
 
@@ -97,6 +102,7 @@ class Ui_wadInfo(object):
         self.sizeLabel_2 = QLabel(self.verticalLayoutWidget)
         self.sizeLabel_2.setObjectName(u"sizeLabel_2")
         self.sizeLabel_2.setFont(font)
+        self.sizeLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.sizeLabel_2)
 
@@ -109,6 +115,7 @@ class Ui_wadInfo(object):
         self.ratingLabel_2 = QLabel(self.verticalLayoutWidget)
         self.ratingLabel_2.setObjectName(u"ratingLabel_2")
         self.ratingLabel_2.setFont(font)
+        self.ratingLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.ratingLabel_2)
 
@@ -121,6 +128,7 @@ class Ui_wadInfo(object):
         self.votesLabel_2 = QLabel(self.verticalLayoutWidget)
         self.votesLabel_2.setObjectName(u"votesLabel_2")
         self.votesLabel_2.setFont(font)
+        self.votesLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.votesLabel_2)
 
@@ -133,6 +141,7 @@ class Ui_wadInfo(object):
         self.urlLabel_2 = QLabel(self.verticalLayoutWidget)
         self.urlLabel_2.setObjectName(u"urlLabel_2")
         self.urlLabel_2.setFont(font)
+        self.urlLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.wadItemLayout.addWidget(self.urlLabel_2)
 
@@ -146,6 +155,7 @@ class Ui_wadInfo(object):
         self.descriptionLabel_2 = QLabel(self.verticalLayoutWidget)
         self.descriptionLabel_2.setObjectName(u"descriptionLabel_2")
         self.descriptionLabel_2.setFont(font)
+        self.descriptionLabel_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.descriptionLabel_2.setWordWrap(True)
 
         self.wadItemLayout.addWidget(self.descriptionLabel_2)
@@ -157,16 +167,23 @@ class Ui_wadInfo(object):
 
         self.wadItemLayout.addWidget(self.descriptionLabel)
 
-        self.visitedCheckBox = QCheckBox(self.verticalLayoutWidget)
+        self.verticalLayoutWidget_2 = QWidget(wadInfo)
+        self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
+        self.verticalLayoutWidget_2.setGeometry(QRect(740, 0, 651, 581))
+        self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget_2)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.textFile = QTextBrowser(self.verticalLayoutWidget_2)
+        self.textFile.setObjectName(u"textFile")
+        self.textFile.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+
+        self.verticalLayout.addWidget(self.textFile)
+
+        self.visitedCheckBox = QCheckBox(self.verticalLayoutWidget_2)
         self.visitedCheckBox.setObjectName(u"visitedCheckBox")
         self.visitedCheckBox.setEnabled(False)
 
-        self.wadItemLayout.addWidget(self.visitedCheckBox)
-
-        self.textFile = QTextBrowser(self.verticalLayoutWidget)
-        self.textFile.setObjectName(u"textFile")
-
-        self.wadItemLayout.addWidget(self.textFile)
+        self.verticalLayout.addWidget(self.visitedCheckBox)
 
 
         self.retranslateUi(wadInfo)
