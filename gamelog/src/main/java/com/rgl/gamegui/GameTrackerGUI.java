@@ -59,14 +59,14 @@ import com.rgl.helpers.ResourceExtractor;
         populateGameDropdown(); // Populate dropdown with games
 
         // Add button actions
-        buttonsPanel.addButtonActionListener(buttonsPanel.getUploadCoverButton(), e -> uploadCoverButtonActionPerformed());
-        buttonsPanel.addButtonActionListener(buttonsPanel.getSubmitNewGameButton(), e -> addNewGame());
-        buttonsPanel.addButtonActionListener(buttonsPanel.getSaveChangesButton(), e -> saveGameChanges());
-        buttonsPanel.addButtonActionListener(buttonsPanel.getDeleteGameButton(), e -> deleteGame());
-        buttonsPanel.addButtonActionListener(buttonsPanel.getOpenHtmlButton(), e -> openBrowser("http://localhost:8080/index.html"));
+        buttonsPanel.addButtonActionListener(buttonsPanel.getUploadCoverButton(), _ -> uploadCoverButtonActionPerformed());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getSubmitNewGameButton(), _ -> addNewGame());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getSaveChangesButton(), _ -> saveGameChanges());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getDeleteGameButton(), _ -> deleteGame());
+        buttonsPanel.addButtonActionListener(buttonsPanel.getOpenHtmlButton(), _ -> openBrowser("http://localhost:8080/index.html"));
 
         // Add action listener to update fields when a game is selected
-        gameDropdown.addActionListener(e -> updateUIFromSelectedGame());
+        gameDropdown.addActionListener(_ -> updateUIFromSelectedGame());
     }
 
     // UI-related methods
