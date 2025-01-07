@@ -90,6 +90,16 @@
     "runAgain": false
   },
   {
+    "gameTitle": "Kick Master",
+    "system": "NES",
+    "comments": "",
+    "youtubeLink": "",
+    "referencedBy": "https://www.twitch.tv/dollaphil",
+    "coverImagePath": "",
+    "gameCompleted": false,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Marble Madness",
     "system": "NES",
     "comments": "7 falls PB",
@@ -100,63 +110,83 @@
     "runAgain": true
   },
   {
+    "gameTitle": "Master of Darkness",
+    "system": "Megadrive",
+    "comments": "1CC",
+    "youtubeLink": "https://youtu.be/z9EVrZM4924",
+    "referencedBy": "https://www.youtube.com/@prime-1111x",
+    "coverImagePath": "data/cover/Master of Darkness Deathless.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Medal of Honor",
+    "system": "PS1",
+    "comments": "All medals and unlocks",
+    "youtubeLink": "https://studio.youtube.com/video/3W2DIzi6pSw/edit",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Medal Of Honor.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Megaman 1",
     "system": "NES",
     "comments": "",
-    "youtubeLink": "",
+    "youtubeLink": "https://youtu.be/jfvT8Ol1-us?t\u003d1175",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
+    "coverImagePath": "data/cover/Megaman.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
     "gameTitle": "Megaman 2",
     "system": "NES",
     "comments": "",
-    "youtubeLink": "",
+    "youtubeLink": "https://www.youtube.com/live/jfvT8Ol1-us?t\u003d4367s",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
+    "coverImagePath": "data/cover/Megaman.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
     "gameTitle": "Megaman 3",
     "system": "NES",
     "comments": "",
-    "youtubeLink": "",
+    "youtubeLink": "https://www.youtube.com/live/jfvT8Ol1-us?t\u003d7863s",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
+    "coverImagePath": "data/cover/Megaman.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
     "gameTitle": "Megaman 4",
     "system": "NES",
     "comments": "",
-    "youtubeLink": "",
+    "youtubeLink": "https://www.youtube.com/live/jfvT8Ol1-us?t\u003d12322s",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
+    "coverImagePath": "data/cover/Megaman.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
     "gameTitle": "Megaman 5",
     "system": "NES",
     "comments": "",
-    "youtubeLink": "",
+    "youtubeLink": "https://www.youtube.com/live/jfvT8Ol1-us?t\u003d17639s",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
+    "coverImagePath": "data/cover/Megaman.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
     "gameTitle": "Megaman 6",
     "system": "NES",
     "comments": "",
-    "youtubeLink": "",
+    "youtubeLink": "https://www.youtube.com/live/jfvT8Ol1-us?t\u003d22421s",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
+    "coverImagePath": "data/cover/Megaman.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
@@ -297,6 +327,16 @@
     "referencedBy": "https://www.youtube.com/@Drunk-E-Cheese",
     "coverImagePath": "",
     "gameCompleted": false,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Red Faction",
+    "system": "PS2",
+    "comments": "",
+    "youtubeLink": "https://youtube.com/live/8yPBgKj4qEg",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Red Faction.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
@@ -478,5 +518,15 @@
     "coverImagePath": "",
     "gameCompleted": false,
     "runAgain": false
+  },
+  {
+    "gameTitle": "Batman Forever",
+    "system": "SNES",
+    "comments": "First time clear, on Easy",
+    "youtubeLink": "https://youtu.be/0xTmef72Nmo",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Batman Forever.jpg",
+    "gameCompleted": true,
+    "runAgain": true
   }
 ]
