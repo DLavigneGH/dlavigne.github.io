@@ -10,6 +10,16 @@
     "runAgain": true
   },
   {
+    "gameTitle": "Batman Forever",
+    "system": "SNES",
+    "comments": "Hard",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003d4itpXrHTqZg",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Batman Forever.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Castlevania 1",
     "system": "NES",
     "comments": "Deathless",
@@ -26,6 +36,16 @@
     "youtubeLink": "https://www.youtube.com/watch?v\u003d5bLUlkL0NVw",
     "referencedBy": "",
     "coverImagePath": "data/cover/Castlevania 2.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Cool Spot",
+    "system": "SNES",
+    "comments": "Hard + UNCOLA",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003da0Bjb4VDg3s",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/CoolSpot.jpg",
     "gameCompleted": true,
     "runAgain": false
   },
@@ -50,6 +70,26 @@
     "runAgain": false
   },
   {
+    "gameTitle": "Earthworm Jim",
+    "system": "SNES",
+    "comments": "On Difficult",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003docHaOaoAaRY",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Earthworm Jim.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Earthworm Jim 2",
+    "system": "SNES",
+    "comments": "On Difficult",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003dHjnlBmcoBag",
+    "referencedBy": "",
+    "coverImagePath": "",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Eye of Beholder 1",
     "system": "PC (Steam)",
     "comments": "Check for Mods to update game",
@@ -63,6 +103,26 @@
     "gameTitle": "Eye of Beholder 2",
     "system": "PC (Steam)",
     "comments": "Check for Mods to update game",
+    "youtubeLink": "",
+    "referencedBy": "",
+    "coverImagePath": "",
+    "gameCompleted": false,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Fear Effect",
+    "system": "PS1",
+    "comments": "on Hard",
+    "youtubeLink": "https://youtube.com/live/6JkbP1Vgg2o",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Fear Effect.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Felix the Cat",
+    "system": "NES",
+    "comments": "",
     "youtubeLink": "",
     "referencedBy": "",
     "coverImagePath": "",
@@ -90,6 +150,46 @@
     "runAgain": false
   },
   {
+    "gameTitle": "Gradius",
+    "system": "NES",
+    "comments": "Run again for better video",
+    "youtubeLink": "",
+    "referencedBy": "",
+    "coverImagePath": "",
+    "gameCompleted": true,
+    "runAgain": true
+  },
+  {
+    "gameTitle": "Gyruss",
+    "system": "NES",
+    "comments": "Run again for better video",
+    "youtubeLink": "",
+    "referencedBy": "",
+    "coverImagePath": "",
+    "gameCompleted": true,
+    "runAgain": true
+  },
+  {
+    "gameTitle": "Jackal",
+    "system": "NES",
+    "comments": "",
+    "youtubeLink": "",
+    "referencedBy": "",
+    "coverImagePath": "",
+    "gameCompleted": false,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Kabuki - Quantum Fighter",
+    "system": "NES",
+    "comments": "First Play",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003dY-Vf31cyE3s",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Kabuki Quantum Fighter.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Marble Madness",
     "system": "NES",
     "comments": "7 falls PB",
@@ -98,6 +198,26 @@
     "coverImagePath": "data/cover/Marble Madness.jpg",
     "gameCompleted": true,
     "runAgain": true
+  },
+  {
+    "gameTitle": "Master of Darkness",
+    "system": "Sega Master System (on Mega Everdrive)",
+    "comments": "Deathless",
+    "youtubeLink": "https://youtu.be/z9EVrZM4924",
+    "referencedBy": "https://www.youtube.com/@prime-1111x",
+    "coverImagePath": "",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Medal of Honor",
+    "system": "PS1",
+    "comments": "All unlocks",
+    "youtubeLink": "https://youtube.com/live/3W2DIzi6pSw",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Medal Of Honor.jpg",
+    "gameCompleted": true,
+    "runAgain": false
   },
   {
     "gameTitle": "Megaman 1",
@@ -172,11 +292,11 @@
   {
     "gameTitle": "Ninja Gaiden 1",
     "system": "NES",
-    "comments": "",
-    "youtubeLink": "",
+    "comments": "First play",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003dSqhHM-8lf30",
     "referencedBy": "",
-    "coverImagePath": "",
-    "gameCompleted": false,
+    "coverImagePath": "data/cover/Ninja Gaiden.jpg",
+    "gameCompleted": true,
     "runAgain": false
   },
   {
@@ -300,6 +420,26 @@
     "runAgain": false
   },
   {
+    "gameTitle": "Power Blazer",
+    "system": "NES",
+    "comments": "JAPANESE Version",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003d_jkvM-PI9Y0",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Power Blazer.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "Red Faction",
+    "system": "PS2",
+    "comments": "",
+    "youtubeLink": "https://youtube.com/live/8yPBgKj4qEg",
+    "referencedBy": "https://www.youtube.com/@prime-1111x",
+    "coverImagePath": "data/cover/Red Faction.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "Resident Evil Director\u0027s Cut",
     "system": "PS1 (Duckstation)",
     "comments": "Standard Chris No Save",
@@ -410,12 +550,42 @@
     "runAgain": false
   },
   {
+    "gameTitle": "System Shock 2: 25th Anniversary Remaster",
+    "system": "PC",
+    "comments": "Second part video in description",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003dfH4nYZTpmz4",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/System Shock 2.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
     "gameTitle": "TMNT 2: The Arcade Game",
     "system": "NES",
     "comments": "1CC",
     "youtubeLink": "https://www.youtube.com/watch?v\u003divrxVJI6YYM",
     "referencedBy": "",
     "coverImagePath": "data/cover/TMNT2.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "The Elder Scrolls: Daggerfall",
+    "system": "PC",
+    "comments": "Unity, Modded",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003dcYaSlecen0I\u0026list\u003dPLo1dfSG32gTkoP3_FigUv9TekOzL6pIBr",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Daggerfall Unity.jpg",
+    "gameCompleted": true,
+    "runAgain": false
+  },
+  {
+    "gameTitle": "The Simpsons Bart\u0027s Nightmare",
+    "system": "SNES",
+    "comments": "A+",
+    "youtubeLink": "https://www.youtube.com/watch?v\u003d-UcNfaAbj5A",
+    "referencedBy": "",
+    "coverImagePath": "data/cover/Bart\u0027s Nightmare.jpg",
     "gameCompleted": true,
     "runAgain": false
   },
@@ -477,56 +647,6 @@
     "referencedBy": "https://www.twitch.tv/dollaphil",
     "coverImagePath": "",
     "gameCompleted": false,
-    "runAgain": false
-  },
-  {
-    "gameTitle": "Batman Forever",
-    "system": "SNES",
-    "comments": "First time clear, on easy",
-    "youtubeLink": "https://youtu.be/0xTmef72Nmo",
-    "referencedBy": "",
-    "coverImagePath": "data/cover/Batman Forever.jpg",
-    "gameCompleted": true,
-    "runAgain": true
-  },
-  {
-    "gameTitle": "Master of Darkness",
-    "system": "Sega Master System (on Mega Everdrive)",
-    "comments": "Deathless",
-    "youtubeLink": "https://youtu.be/z9EVrZM4924",
-    "referencedBy": "https://www.youtube.com/@prime-1111x",
-    "coverImagePath": "",
-    "gameCompleted": true,
-    "runAgain": false
-  },
-  {
-    "gameTitle": "Fear Effect",
-    "system": "PS1",
-    "comments": "on Hard",
-    "youtubeLink": "https://youtube.com/live/6JkbP1Vgg2o",
-    "referencedBy": "",
-    "coverImagePath": "data/cover/Fear Effect.jpg",
-    "gameCompleted": true,
-    "runAgain": false
-  },
-  {
-    "gameTitle": "Medal of Honor",
-    "system": "PS1",
-    "comments": "All unlocks",
-    "youtubeLink": "https://youtube.com/live/3W2DIzi6pSw",
-    "referencedBy": "",
-    "coverImagePath": "data/cover/Medal Of Honor.jpg",
-    "gameCompleted": true,
-    "runAgain": false
-  },
-  {
-    "gameTitle": "Red Faction",
-    "system": "PS2",
-    "comments": "",
-    "youtubeLink": "https://youtube.com/live/8yPBgKj4qEg",
-    "referencedBy": "https://www.youtube.com/@prime-1111x",
-    "coverImagePath": "data/cover/Red Faction.jpg",
-    "gameCompleted": true,
     "runAgain": false
   }
 ]
